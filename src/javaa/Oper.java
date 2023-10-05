@@ -3,6 +3,8 @@ package javaa;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Oper {
 
@@ -20,7 +22,7 @@ public class Oper {
         this.fileName = fileName;
     }
 
-    public Map<String,String> readList(){
+    private Map<String,String> readList(){
         Map<String,String> hashMap = new HashMap<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -39,14 +41,70 @@ public class Oper {
 
     public void delete(String key){
         Map<String,String> hashMap = readList();
-        hashMap.remove(key);
-        System.out.println("Запись, ключ которой является "+ key +", успешно удалена.");
+        if (!hashMap.containsKey(key)){
+            System.out.println("Словарь не содержит такого слова.");
+        }
+        else {
+            hashMap.remove(key);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                for (Map.Entry<String, String> entry :
+                        hashMap.entrySet()) {
+                    writer.write(entry.getKey() + " "
+                            + entry.getValue());
+                    writer.newLine();
+                }
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Запись, ключ которой является " + key + ", успешно удалена.");
+        }
     }
 
 
     public void poisk(String key){
         Map<String,String> hashMap = readList();
-        String value = hashMap.get(key);
-        System.out.println(key+" "+value);
+        System.out.println(hashMap);
+        if (!hashMap.containsKey(key)){
+            System.out.println("Словарь не содержит такого слова.");
+        }else {
+            String value = hashMap.get(key);
+            System.out.println(key + " " + value);
+        }
+    }
+
+    public void addInFile(String key, String value){
+        String regex;
+        Pattern pattern;
+        Matcher matcher;
+        if (fileName == "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary"){
+            regex = "[a-zA-Z]{4}";
+            pattern = Pattern.compile(regex);
+            matcher = pattern.matcher(key);
+            if(matcher.matches()){
+                add(key,value);
+            }
+            else {
+                System.out.println("no");
+            }
+        } else if (fileName == "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2") {
+            regex = "[0-9]{5}";
+            pattern = Pattern.compile(regex);
+            matcher = pattern.matcher(key);
+            if(matcher.matches()){
+                add(key,value);
+            }
+            else {
+                System.out.println("no");
+            }
+        }
+    }
+
+    public void add(String key, String value){
+        try(FileWriter writer = new FileWriter(fileName,true)){
+            writer.write(key+ " "+ value);
+        }catch(IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
