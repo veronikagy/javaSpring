@@ -39,8 +39,23 @@ public class Oper {
 
     public void delete(String key){
         Map<String,String> hashMap = readList();
-        hashMap.remove(key);
-        System.out.println("Запись, ключ которой является "+ key +", успешно удалена.");
+        if (!hashMap.containsKey(key)){
+            System.out.println("Словарь не содержит такого слова.");
+        }
+        else {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                for (Map.Entry<String, String> entry :
+                        hashMap.entrySet()) {
+                    writer.write(entry.getKey() + " "
+                            + entry.getValue());
+                    writer.newLine();
+                }
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Запись, ключ которой является " + key + ", успешно удалена.");
+        }
     }
 
 
