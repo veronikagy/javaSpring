@@ -64,7 +64,6 @@ public class Oper {
 
     public void poisk(String key){
         Map<String,String> hashMap = readList();
-        System.out.println(hashMap);
         if (!hashMap.containsKey(key)){
             System.out.println("Словарь не содержит такого слова.");
         }else {
@@ -85,7 +84,7 @@ public class Oper {
                 add(key,value);
             }
             else {
-                System.out.println("no");
+                System.out.println("Неправильный ключ, ключ должен состоять из четырёх латинских букв.");
             }
         } else if (fileName == "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2") {
             regex = "[0-9]{5}";
@@ -95,16 +94,27 @@ public class Oper {
                 add(key,value);
             }
             else {
-                System.out.println("no");
+                System.out.println("Неправильный ключ, ключ должен состоять из пяти цифр.");
             }
         }
     }
 
     public void add(String key, String value){
-        try(FileWriter writer = new FileWriter(fileName,true)){
-            writer.write(key+ " "+ value);
-        }catch(IOException e) {
-            throw new RuntimeException(e);
+        Map<String, String> hashMap  = readList();
+
+        if (!hashMap.containsKey(key)){
+            try(FileWriter writer = new FileWriter(fileName,true)){
+                writer.write("\n");
+                writer.write(key+ " "+ value);
+
+            }catch(IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Пара добавлена.");
+        }else {
+            System.out.println("Такой ключ уже имеется.");
         }
+
+
     }
 }
