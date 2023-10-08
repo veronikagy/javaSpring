@@ -76,7 +76,7 @@ public class Oper {
         String regex;
         Pattern pattern;
         Matcher matcher;
-        if (fileName == "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary"){
+        if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary")){
             regex = "[a-zA-Z]{4}";
             pattern = Pattern.compile(regex);
             matcher = pattern.matcher(key);
@@ -86,7 +86,7 @@ public class Oper {
             else {
                 System.out.println("Неправильный ключ, ключ должен состоять из четырёх латинских букв.");
             }
-        } else if (fileName == "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2") {
+        } else if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2")) {
             regex = "[0-9]{5}";
             pattern = Pattern.compile(regex);
             matcher = pattern.matcher(key);
