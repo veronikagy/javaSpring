@@ -1,4 +1,6 @@
-package javaa;
+package Service;
+
+import FrameworkAndDrivers.ReaderWriter;
 
 import java.io.*;
 import java.util.HashMap;
@@ -6,7 +8,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Oper {
+public class OperaziiClass implements Operazii {
+    Map<String, String> hashMap;
+    ReaderWriter readerWriter = new ReaderWriter();
 
     public String getFileName() {
         return fileName;
@@ -15,14 +19,17 @@ public class Oper {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
+    private String fileName = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary";
 
-    private String fileName;
-
-    public Oper(String fileName) {
-        this.fileName = fileName;
+    public OperaziiClass() {
+        this.hashMap = new HashMap<>();
+        this.hashMap = readerWriter.readInFile(this.fileName);
     }
 
-    private Map<String,String> readList(){
+    public void test(){
+        System.out.println(hashMap);
+    }
+    /*public Map<String,String> readList(){
         Map<String,String> hashMap = new HashMap<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -37,8 +44,9 @@ public class Oper {
         }
 
         return hashMap;
-    }
+    }*/
 
+    /*@Override
     public void delete(String key){
         Map<String,String> hashMap = readList();
         if (!hashMap.containsKey(key)){
@@ -61,17 +69,33 @@ public class Oper {
         }
     }
 
-
+    @Override
     public void poisk(String key){
         Map<String,String> hashMap = readList();
+        //getOrDefault!!!!!
         if (!hashMap.containsKey(key)){
             System.out.println("Словарь не содержит такого слова.");
         }else {
             String value = hashMap.get(key);
             System.out.println(key + " " + value);
         }
+    }*/
+
+    @Override
+    public void delete(String key) {
+
     }
 
+    @Override
+    public void poisk(String key) {
+
+    }
+
+    @Override
+    public void addInFile(String key, String value) {
+
+    }
+   /* @Override
     public void addInFile(String key, String value){
         String regex;
         Pattern pattern;
@@ -97,9 +121,9 @@ public class Oper {
                 System.out.println("Неправильный ключ, ключ должен состоять из пяти цифр.");
             }
         }
-    }
+    }*/
 
-    public void add(String key, String value){
+    /*public void add(String key, String value){
         Map<String, String> hashMap  = readList();
 
         if (!hashMap.containsKey(key)){
@@ -116,5 +140,5 @@ public class Oper {
         }
 
 
-    }
+    }*/
 }
