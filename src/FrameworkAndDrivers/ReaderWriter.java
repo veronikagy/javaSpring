@@ -1,14 +1,11 @@
 package FrameworkAndDrivers;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ReaderWriter implements FileDB {
-    public Map<String,String> hashMap = new HashMap<>();
+    private Map<String,String> hashMap = new HashMap<>();
 
     @Override
     public Map<String,String> readInFile(String fileName){
@@ -27,12 +24,24 @@ public class ReaderWriter implements FileDB {
 
     @Override
     public void writeInFile(String key, String value, String fileName){
-        try(FileWriter writer = new FileWriter(fileName,true)){
-            writer.write("\n");
-            writer.write(key+ " "+ value);
+        try(FileWriter writer = new FileWriter(fileName ,true)){
+            writer.write("\n"+key+ " "+ value);
 
         }catch(IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void writeAllInFile(Map<String,String> hashMap, String fileName){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+                writer.write(entry.getKey() + " "
+                        + entry.getValue()+"\n");
+                //writer.newLine();
+            }
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

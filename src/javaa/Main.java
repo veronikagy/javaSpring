@@ -1,49 +1,13 @@
 package javaa;
-import FrameworkAndDrivers.FileDB;
-import FrameworkAndDrivers.ReaderWriter;
-import Service.OperaziiClass;
-
-import java.io.File;
-import java.util.Scanner;
+import Controller.Console;
+import Controller.ConsoleI;
+import Service.Operazii;
+import Service.OperaziiSlovary1;
+import Service.OperaziiSlovary2;
 
 public class Main {
-
+    private static ConsoleI console = new Console();
     public static void main(String[] args) {
-        /*OperaziiClass oper = null;
-        System.out.println("C каким языком вы хотите работать?\n1) С первым языком\n2) Со вторым языком");
-        Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
-        oper = switch (i) {
-            case 1 -> new OperaziiClass();
-            default -> new OperaziiClass();
-        };
-        System.out.println("Что вы хотите сделать?\n1)Удалить запись по ключу \n2) Найти запись по ключу \n3) Добавить запись по ключу");
-        String key;
-        String value;
-        int i2 = scanner.nextInt();
-        if (i2 == 1){
-            System.out.println("Укажите ключ:");
-            key = scanner.next();
-            oper.delete(key);
-        } else if (i2==2) {
-            System.out.println("Укажите ключ:");
-            key = scanner.next();
-            oper.poisk(key);
-        }else if (i2==3){
-            String s = i==1 ? "Ключ должен состоять из 4 латинских букв." : "Ключ должен состоять из 5 цифр.";
-            System.out.println(s);
-            System.out.println("Укажите ключ:");
-            key = scanner.next();
-            System.out.println("Укажите значение:");
-            value = scanner.next();
-            oper.addInFile(key,value);
-        }
-
-
-        scanner.close();
-*/
-
-        OperaziiClass operaziiClass = new OperaziiClass();
-        operaziiClass.test();
+        console.run();
     }
 }

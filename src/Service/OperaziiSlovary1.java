@@ -1,16 +1,15 @@
 package Service;
 
+import FrameworkAndDrivers.FileDB;
 import FrameworkAndDrivers.ReaderWriter;
 
-import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class OperaziiClass implements Operazii {
-    Map<String, String> hashMap;
-    ReaderWriter readerWriter = new ReaderWriter();
+public class OperaziiSlovary1 extends OperaziiObshii{
+    private static final String pattern = "[a-zA-Z]{4}";
+    private Map<String, String> hashMap;
+    private FileDB readerWriter = new ReaderWriter();
 
     public String getFileName() {
         return fileName;
@@ -21,14 +20,45 @@ public class OperaziiClass implements Operazii {
     }
     private String fileName = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary";
 
-    public OperaziiClass() {
+    public OperaziiSlovary1() {                       //Правильно ли?
         this.hashMap = new HashMap<>();
         this.hashMap = readerWriter.readInFile(this.fileName);
     }
 
-    public void test(){
-        System.out.println(hashMap);
+    @Override
+    public void delete(String key) {
+        if (!hashMap.containsKey(key)){
+            System.out.println("Словарь не содержит такого слова.");
+        }
+        else {
+            hashMap.remove(key);
+            readerWriter.writeAllInFile( hashMap,fileName);
+            System.out.println("Запись, ключ которой является " + key + ", успешно удалена.");
+        }
+
     }
+
+    @Override
+    public void poisk(String key) {
+        if (!hashMap.containsKey(key)){
+            System.out.println("Словарь не содержит такого слова.");
+        }else {
+            String value = hashMap.get(key);
+            System.out.println(key + " " + value);
+        }
+    }
+
+    @Override
+    public void addInFile(String key, String value) {
+        if(key.matches(pattern)){
+            readerWriter.writeInFile(key,value,fileName);
+            System.out.println("Запись успешно добавлена.");
+        }
+        else {
+            System.out.println("Неправильный ключ, ключ должен состоять из четырёх латинских букв.");
+        }
+    }
+
     /*public Map<String,String> readList(){
         Map<String,String> hashMap = new HashMap<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -81,20 +111,7 @@ public class OperaziiClass implements Operazii {
         }
     }*/
 
-    @Override
-    public void delete(String key) {
 
-    }
-
-    @Override
-    public void poisk(String key) {
-
-    }
-
-    @Override
-    public void addInFile(String key, String value) {
-
-    }
    /* @Override
     public void addInFile(String key, String value){
         String regex;
