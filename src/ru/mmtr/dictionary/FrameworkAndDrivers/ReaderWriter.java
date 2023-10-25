@@ -1,11 +1,11 @@
-package FrameworkAndDrivers;
+package ru.mmtr.dictionary.FrameworkAndDrivers;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ReaderWriter implements FileDB {
-    private Map<String,String> hashMap = new HashMap<>();
+    private Map<String,String> hashMap = new HashMap<>();//final
 
     @Override
     public Map<String,String> readInFile(String fileName){

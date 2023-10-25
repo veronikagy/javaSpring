@@ -1,12 +1,9 @@
-package Service;
+package ru.mmtr.dictionary.Service;
 
-import FrameworkAndDrivers.FileDB;
-import FrameworkAndDrivers.ReaderWriter;
-import java.util.HashMap;
-import java.util.Map;
+import ru.mmtr.dictionary.FrameworkAndDrivers.FileDB;
+import ru.mmtr.dictionary.FrameworkAndDrivers.ReaderWriter;
 
-public class OperaziiObshii implements Operazii {
-    Map<String, String> hashMap;
+public class OperationA implements Operation {
     FileDB readerWriter = new ReaderWriter();
     private String fileName;
 
@@ -78,7 +75,7 @@ public class OperaziiObshii implements Operazii {
     }
 
     @Override
-    public void poisk(String key) {
+    public void search(String key) {
 
     }
 

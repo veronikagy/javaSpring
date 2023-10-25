@@ -1,14 +1,14 @@
-package Controller;
+package ru.mmtr.dictionary.Controller;
 
-import Service.OperaziiSlovary1;
-import Service.Operazii;
-import Service.OperaziiSlovary2;
+import ru.mmtr.dictionary.Service.OperationDictionary1;
+import ru.mmtr.dictionary.Service.Operation;
+import ru.mmtr.dictionary.Service.OperationDictionary2;
 
 import java.util.Scanner;
 
 public class Console implements ConsoleI{
-    private static Operazii oper = new OperaziiSlovary1();
-    private static Operazii oper2 = new OperaziiSlovary2();
+    private static Operation oper = new OperationDictionary1();
+    private static Operation oper2 = new OperationDictionary2();
     private String key;
     private String value;
     public void run(){
@@ -26,12 +26,12 @@ public class Console implements ConsoleI{
             case 1:
                 System.out.println("Введите ключ");
                 key = scanner.next();
-                oper.poisk(key);
+                oper.search(key);
                 break;
             case 2:
                 System.out.println("Введите ключ");
                 key = scanner.next();
-                oper2.poisk(key);
+                oper2.search(key);
                 break;
             case 3:
                 System.out.println("Введите ключ");

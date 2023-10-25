@@ -1,13 +1,15 @@
-package Service;
+package ru.mmtr.dictionary.Service;
 
-import FrameworkAndDrivers.FileDB;
-import FrameworkAndDrivers.ReaderWriter;
+import ru.mmtr.dictionary.FrameworkAndDrivers.FileDB;
+import ru.mmtr.dictionary.FrameworkAndDrivers.ReaderWriter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OperaziiSlovary2 extends OperaziiObshii{
+public class OperationDictionary2 extends OperationA {
         private static final String pattern = "[0-9]{5}";
+        private static final String fileName = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2";
+
         private Map<String, String> hashMap;
         private FileDB readerWriter = new ReaderWriter();
 
@@ -15,12 +17,7 @@ public class OperaziiSlovary2 extends OperaziiObshii{
             return fileName;
         }
 
-        public void setFileName(String fileName) {
-            this.fileName = fileName;
-        }
-        private String fileName = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2";
-
-        public OperaziiSlovary2() {                       //Правильно ли?
+        public OperationDictionary2() {                       //Правильно ли?
             this.hashMap = new HashMap<>();
             this.hashMap = readerWriter.readInFile(this.fileName);
         }
@@ -39,7 +36,7 @@ public class OperaziiSlovary2 extends OperaziiObshii{
         }
 
         @Override
-        public void poisk(String key) {
+        public void search(String key) {
             if (!hashMap.containsKey(key)){
                 System.out.println("Словарь не содержит такого слова.");
             }else {

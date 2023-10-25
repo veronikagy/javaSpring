@@ -1,32 +1,27 @@
-package Service;
+package ru.mmtr.dictionary.Service;
 
-import FrameworkAndDrivers.FileDB;
-import FrameworkAndDrivers.ReaderWriter;
+import ru.mmtr.dictionary.FrameworkAndDrivers.FileDB;
+import ru.mmtr.dictionary.FrameworkAndDrivers.ReaderWriter;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class OperaziiSlovary1 extends OperaziiObshii{
+public class OperationDictionary1 extends OperationA {
     private static final String pattern = "[a-zA-Z]{4}";
-    private Map<String, String> hashMap;
+    private static final String fileName = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary";
     private FileDB readerWriter = new ReaderWriter();
 
     public String getFileName() {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-    private String fileName = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary";
 
-    public OperaziiSlovary1() {                       //Правильно ли?
-        this.hashMap = new HashMap<>();
-        this.hashMap = readerWriter.readInFile(this.fileName);
+
+    public OperationDictionary1() {
     }
 
     @Override
     public void delete(String key) {
+        Map<String, String> hashMap = readerWriter.readInFile(fileName);
         if (!hashMap.containsKey(key)){
             System.out.println("Словарь не содержит такого слова.");
         }
@@ -39,7 +34,8 @@ public class OperaziiSlovary1 extends OperaziiObshii{
     }
 
     @Override
-    public void poisk(String key) {
+    public void search(String key) {
+        Map<String, String> hashMap = readerWriter.readInFile(fileName);
         if (!hashMap.containsKey(key)){
             System.out.println("Словарь не содержит такого слова.");
         }else {
