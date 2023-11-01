@@ -4,7 +4,7 @@ import ru.mmtr.dictionary.Controller.ConsoleI;
 
 
 public class Main {
-    private static final ConsoleI console = new Console();//?
+    private static final ConsoleI console = new Console();
     public static void main(String[] args) {
         console.run();
     }

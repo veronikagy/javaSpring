@@ -89,7 +89,7 @@ public class OperationA implements Operation {
         String regex;
         Pattern pattern;
         Matcher matcher;
-        if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary")){
+        if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\dictionary1\\src\\dictionary1")){
             regex = "[a-zA-Z]{4}";
             pattern = Pattern.compile(regex);
             matcher = pattern.matcher(key);
@@ -99,7 +99,7 @@ public class OperationA implements Operation {
             else {
                 System.out.println("Неправильный ключ, ключ должен состоять из четырёх латинских букв.");
             }
-        } else if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2")) {
+        } else if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\dictionary1\\src\\dictionary2")) {
             regex = "[0-9]{5}";
             pattern = Pattern.compile(regex);
             matcher = pattern.matcher(key);

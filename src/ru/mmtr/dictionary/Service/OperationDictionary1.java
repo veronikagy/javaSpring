@@ -1,33 +1,30 @@
 package ru.mmtr.dictionary.Service;
 
+import ru.mmtr.dictionary.Controller.Console;
+import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
 import ru.mmtr.dictionary.FrameworkAndDrivers.FileDB;
 import ru.mmtr.dictionary.FrameworkAndDrivers.ReaderWriter;
 
 import java.util.Map;
 
 public class OperationDictionary1 extends OperationA {
+    public OperationDictionary1(DictionaryFileEnum fileNameEnum) {
+        this.fileNameEnum = fileNameEnum;
+    }
+
     private static final String pattern = "[a-zA-Z]{4}";
-    private static final String fileName = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary";
+
+    private static DictionaryFileEnum fileNameEnum = Console.getFileNameEnum();
     private FileDB readerWriter = new ReaderWriter();
-
-    public String getFileName() {
-        return fileName;
-    }
-
-
-
-    public OperationDictionary1() {
-    }
 
     @Override
     public void delete(String key) {
-        Map<String, String> hashMap = readerWriter.readInFile(fileName);
-        if (!hashMap.containsKey(key)){
+        Map<String, String> hashMap = readerWriter.readInFile(fileNameEnum);
+        if (!hashMap.containsKey(key)) {
             System.out.println("Словарь не содержит такого слова.");
-        }
-        else {
+        } else {
             hashMap.remove(key);
-            readerWriter.writeAllInFile( hashMap,fileName);
+            readerWriter.writeAllInFile(hashMap, fileNameEnum);
             System.out.println("Запись, ключ которой является " + key + ", успешно удалена.");
         }
 
@@ -35,10 +32,10 @@ public class OperationDictionary1 extends OperationA {
 
     @Override
     public void search(String key) {
-        Map<String, String> hashMap = readerWriter.readInFile(fileName);
-        if (!hashMap.containsKey(key)){
+        Map<String, String> hashMap = readerWriter.readInFile(fileNameEnum);
+        if (!hashMap.containsKey(key)) {
             System.out.println("Словарь не содержит такого слова.");
-        }else {
+        } else {
             String value = hashMap.get(key);
             System.out.println(key + " " + value);
         }
@@ -46,11 +43,10 @@ public class OperationDictionary1 extends OperationA {
 
     @Override
     public void addInFile(String key, String value) {
-        if(key.matches(pattern)){
-            readerWriter.writeInFile(key,value,fileName);
+        if (key.matches(pattern)) {
+            readerWriter.writeInFile(key, value, fileNameEnum);
             System.out.println("Запись успешно добавлена.");
-        }
-        else {
+        } else {
             System.out.println("Неправильный ключ, ключ должен состоять из четырёх латинских букв.");
         }
     }
@@ -113,7 +109,7 @@ public class OperationDictionary1 extends OperationA {
         String regex;
         Pattern pattern;
         Matcher matcher;
-        if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary")){
+        if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\dictionary1\\src\\dictionary1")){
             regex = "[a-zA-Z]{4}";
             pattern = Pattern.compile(regex);
             matcher = pattern.matcher(key);
@@ -123,7 +119,7 @@ public class OperationDictionary1 extends OperationA {
             else {
                 System.out.println("Неправильный ключ, ключ должен состоять из четырёх латинских букв.");
             }
-        } else if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\slovary\\src\\slovary2")) {
+        } else if (fileName.equals("C:\\Users\\veron\\IdeaProjects\\dictionary1\\src\\dictionary2")) {
             regex = "[0-9]{5}";
             pattern = Pattern.compile(regex);
             matcher = pattern.matcher(key);

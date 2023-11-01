@@ -1,5 +1,6 @@
 package ru.mmtr.dictionary.Controller;
 
+import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
 import ru.mmtr.dictionary.Service.OperationDictionary1;
 import ru.mmtr.dictionary.Service.Operation;
 import ru.mmtr.dictionary.Service.OperationDictionary2;
@@ -7,57 +8,73 @@ import ru.mmtr.dictionary.Service.OperationDictionary2;
 import java.util.Scanner;
 
 public class Console implements ConsoleI{
-    private static Operation oper = new OperationDictionary1();
-    private static Operation oper2 = new OperationDictionary2();
+    private static DictionaryFileEnum fileNameEnum;
+    private static Operation oper;
     private String key;
     private String value;
-    public void run(){
-        System.out.println("Выберите, что вы хотите сделать:\n" +
-                "1) Найти запись по ключу в первом словаре.\n" +
-                "2) Найти запись по ключу в первом словаре.\n" +
-                "3) Удалить запись по ключу в первом словаре.\n" +
-                "4) Удалить запись по ключу в первом словаре.\n" +
-                "5) Добавить запись в первый словарь.\n" +
-                "6) Добавить запись во второй словарь.");
 
+    public static DictionaryFileEnum getFileNameEnum() {
+        return fileNameEnum;
+    }
+
+    public void run(){
         Scanner scanner = new Scanner(System.in);
-        int i = scanner.nextInt();
-        switch (i){
-            case 1:
-                System.out.println("Введите ключ");
-                key = scanner.next();
-                oper.search(key);
-                break;
-            case 2:
-                System.out.println("Введите ключ");
-                key = scanner.next();
-                oper2.search(key);
-                break;
-            case 3:
-                System.out.println("Введите ключ");
-                key = scanner.next();
-                oper.delete(key);
-                break;
-            case 4:
-                System.out.println("Введите ключ");
-                key = scanner.next();
-                oper2.delete(key);
-                break;
-            case 5:
-                System.out.println("Введите ключ и значение");
-                key = scanner.next();
-                value = scanner.next();
-                oper.addInFile(key,value);
-                break;
-            case 6:
-                System.out.println("Введите ключ и значение");
-                key = scanner.next();
-                value = scanner.next();
-                oper2.addInFile(key,value);
-                break;
-            default:
-                System.out.println("no");
+        boolean ok = false;
+        String number_dictionary;
+        String number_operation;
+        while (!ok){
+            System.out.println("Выберите, с какимм словарём хотите работать:\n" +
+                    "1) Словарь с 4 буквами.\n" +
+                    "2) Словарь с 5 цифрами." );
+            number_dictionary = scanner.nextLine();
+            switch (number_dictionary){
+                case "1":
+                    ok = true;
+                    fileNameEnum = DictionaryFileEnum.DICTIONARY1;
+                    oper = new OperationDictionary1(fileNameEnum);
+                    break;
+                case "2":
+                    ok = true;
+                    fileNameEnum = DictionaryFileEnum.DICTIONARY2;
+                    oper = new OperationDictionary2(fileNameEnum);
+                    break;
+                default:
+                    System.out.println("Ввыберите цифру 1 или 2.");
+            }
         }
+        ok = false;
+        while (!ok) {
+            System.out.println("Выберите, что вы хотите сделать:\n" +
+                    "1) Найти запись по ключу в словаре.\n" +
+                    "2) Удалить запись по ключу в словаре.\n" +
+                    "3) Добавить запись в словарь.");
+            number_operation = scanner.nextLine();
+            switch (number_operation){
+                case "1":
+                    ok = true;
+                    System.out.println("Укажите ключ:");
+                    key = scanner.next();
+                    oper.search(key);
+                    break;
+                case "2":
+                    ok = true;
+                    System.out.println("Укажите ключ:");
+                    key = scanner.next();
+                    oper.delete(key);
+                    break;
+                case "3":
+                    ok = true;
+                    System.out.println("Укажите ключ:");
+                    key = scanner.next();
+                    System.out.println("Укажите значение:");
+                    value = scanner.next();
+                    oper.addInFile(key,value);
+                    break;
+                default:
+                    System.out.println("Ввыберите цифру 1, 2 или 3.");
+            }
+        }
+
 
         /*oper = switch (i) {
             case 1 -> new OperaziiClass();
