@@ -7,14 +7,12 @@ import ru.mmtr.dictionary.FrameworkAndDrivers.ReaderWriter;
 
 import java.util.Map;
 
-public class OperationDictionary1 extends OperationA {
-    public OperationDictionary1(DictionaryFileEnum fileNameEnum) {
+public class OperationDictionary implements Operation {
+    public OperationDictionary(DictionaryFileEnum fileNameEnum) {
         this.fileNameEnum = fileNameEnum;
     }
-
-    private static final String pattern = "[a-zA-Z]{4}";
-
     private static DictionaryFileEnum fileNameEnum = Console.getFileNameEnum();
+
     private FileDB readerWriter = new ReaderWriter();
 
     @Override
@@ -43,11 +41,9 @@ public class OperationDictionary1 extends OperationA {
 
     @Override
     public void addInFile(String key, String value) {
-        if (key.matches(pattern)) {
+        if (fileNameEnum.getDictionary_description().verification(key)) {
             readerWriter.writeInFile(key, value, fileNameEnum);
             System.out.println("Запись успешно добавлена.");
-        } else {
-            System.out.println("Неправильный ключ, ключ должен состоять из четырёх латинских букв.");
         }
     }
 

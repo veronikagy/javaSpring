@@ -17,6 +17,7 @@ public class ReaderWriter implements FileDB {
         return String.valueOf(fileName);
     }
 
+
     @Override
     public Map<String,String> readInFile(DictionaryFileEnum fileNameEnum){
         try(BufferedReader reader = new BufferedReader(new FileReader(getFileName(fileNameEnum)))) {

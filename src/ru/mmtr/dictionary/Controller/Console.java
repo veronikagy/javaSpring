@@ -1,9 +1,8 @@
 package ru.mmtr.dictionary.Controller;
 
 import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
-import ru.mmtr.dictionary.Service.OperationDictionary1;
+import ru.mmtr.dictionary.Service.OperationDictionary;
 import ru.mmtr.dictionary.Service.Operation;
-import ru.mmtr.dictionary.Service.OperationDictionary2;
 
 import java.util.Scanner;
 
@@ -31,12 +30,12 @@ public class Console implements ConsoleI{
                 case "1":
                     ok = true;
                     fileNameEnum = DictionaryFileEnum.DICTIONARY1;
-                    oper = new OperationDictionary1(fileNameEnum);
+                    oper = new OperationDictionary(fileNameEnum);
                     break;
                 case "2":
                     ok = true;
                     fileNameEnum = DictionaryFileEnum.DICTIONARY2;
-                    oper = new OperationDictionary2(fileNameEnum);
+                    oper = new OperationDictionary(fileNameEnum);
                     break;
                 default:
                     System.out.println("Ввыберите цифру 1 или 2.");
