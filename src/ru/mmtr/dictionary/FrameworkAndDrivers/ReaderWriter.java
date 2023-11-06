@@ -8,18 +8,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ReaderWriter implements FileDB {
-    private Map<String,String> hashMap = new HashMap<>();//final
-    private static StringBuilder fileName;
+    private static final String file = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\dictionary";
 
     private static String getFileName(DictionaryFileEnum fileNameEnum){
         int n = fileNameEnum.ordinal() +1;
-        fileName = new StringBuilder("C:\\Users\\veron\\IdeaProjects\\slovary\\src\\dictionary"+n);
+        StringBuilder fileName = new StringBuilder(file+n);
         return String.valueOf(fileName);
     }
 
-
     @Override
     public Map<String,String> readInFile(DictionaryFileEnum fileNameEnum){
+        Map<String,String> hashMap = new HashMap<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(getFileName(fileNameEnum)))) {
             String line;
             while((line=reader.readLine())!=null){
@@ -27,8 +26,6 @@ public class ReaderWriter implements FileDB {
                 String second = line.substring(line.indexOf(" ")+1);
                 hashMap.put(first,second);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
         } catch (IOException k) {
             throw new FileException("Exception in writeInFile");
         }
@@ -50,7 +47,6 @@ public class ReaderWriter implements FileDB {
             for (Map.Entry<String, String> entry : hashMap.entrySet()) {
                 writer.write(entry.getKey() + " "
                         + entry.getValue()+"\n");
-                //writer.newLine();
             }
             writer.flush();
         } catch (IOException e) {
