@@ -1,5 +1,6 @@
 package ru.mmtr.dictionary.FrameworkAndDrivers;
 
+import org.springframework.stereotype.Repository;
 import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
 import ru.mmtr.dictionary.Exceptions.FileException;
 
@@ -7,6 +8,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class ReaderWriter implements FileDB {
     private static final String file = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\dictionary";
 

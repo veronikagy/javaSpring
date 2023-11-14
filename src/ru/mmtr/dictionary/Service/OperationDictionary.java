@@ -1,12 +1,13 @@
 package ru.mmtr.dictionary.Service;
 
 
+import org.springframework.stereotype.Service;
 import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
 import ru.mmtr.dictionary.FrameworkAndDrivers.FileDB;
 import ru.mmtr.dictionary.FrameworkAndDrivers.ReaderWriter;
 
 import java.util.Map;
-
+@Service
 public class OperationDictionary implements Operation {
     private static final FileDB readerWriter = new ReaderWriter();
 
