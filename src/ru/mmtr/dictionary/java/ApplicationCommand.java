@@ -28,13 +28,11 @@ public class ApplicationCommand {
         fileNameEnum = whichDictionary(dictionary_number);
         oper.search(key,fileNameEnum);
     }
-
     @ShellMethod(value = "delete")
     public void delete(int dictionary_number, String key) {
         fileNameEnum = whichDictionary(dictionary_number);
         oper.delete(key,fileNameEnum);
     }
-
     private DictionaryFileEnum whichDictionary(int dictionary_number) {
         if (dictionary_number == 1) {
             return DictionaryFileEnum.DICTIONARY1;

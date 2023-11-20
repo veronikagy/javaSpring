@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Service
 public class OperationDictionary implements Operation {
-    private static FileDB readerWriter ;
+    private FileDB readerWriter ;
 
     public OperationDictionary() {
     }
