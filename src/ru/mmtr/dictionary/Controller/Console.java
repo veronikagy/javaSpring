@@ -1,13 +1,26 @@
 package ru.mmtr.dictionary.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
 import ru.mmtr.dictionary.Service.OperationDictionary;
 import ru.mmtr.dictionary.Service.Operation;
 
 import java.util.Scanner;
 
+@Component
 public class Console implements ConsoleI{
-    private static final Operation oper = new OperationDictionary();
+
+
+    private Operation oper;
+
+    public Console() {
+    }
+    @Autowired
+    public Console(Operation oper) {
+        this.oper = oper;
+    }
+
     private static DictionaryFileEnum fileNameEnum;
 
     public void run(){

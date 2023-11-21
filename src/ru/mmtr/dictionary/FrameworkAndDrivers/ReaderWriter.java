@@ -1,5 +1,9 @@
 package ru.mmtr.dictionary.FrameworkAndDrivers;
 
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Repository;
 import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
 import ru.mmtr.dictionary.Exceptions.FileException;
 
@@ -7,8 +11,12 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Repository
+@ConfigurationProperties(prefix = "constants")
 public class ReaderWriter implements FileDB {
-    private static final String file = "C:\\Users\\veron\\IdeaProjects\\slovary\\src\\dictionary";
+
+    private static String file ="C:\\Users\\veron\\IdeaProjects\\slovary\\src\\dictionary";
 
     private static String getFileName(DictionaryFileEnum fileNameEnum){
         int n = fileNameEnum.ordinal() +1;
@@ -52,5 +60,12 @@ public class ReaderWriter implements FileDB {
         } catch (IOException e) {
             throw new FileException("Exception in writeInFile");
         }
+    }
+
+
+
+    //Test
+    public void print(){
+        System.out.println("ReaderWriter");
     }
 }
