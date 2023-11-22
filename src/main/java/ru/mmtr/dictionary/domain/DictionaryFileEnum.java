@@ -1,5 +1,8 @@
 package ru.mmtr.dictionary.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum DictionaryFileEnum {
     DICTIONARY1(1, new ValidationRule("[a-zA-Z]{4}")),
     DICTIONARY2(2, new ValidationRule("[0-9]{5}"));
@@ -7,14 +10,6 @@ public enum DictionaryFileEnum {
     private final ValidationRule dictionaryPattern;
 
     private final Integer dictionaryNumber;
-
-    public ValidationRule getDictionaryPattern() {
-        return dictionaryPattern;
-    }
-
-    public Integer getDictionaryNumber() {
-        return dictionaryNumber;
-    }
 
     DictionaryFileEnum(Integer dictionaryNumber, ValidationRule dictionaryPattern) {
         this.dictionaryNumber = dictionaryNumber;

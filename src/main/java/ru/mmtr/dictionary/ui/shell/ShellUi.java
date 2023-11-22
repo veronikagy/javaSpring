@@ -8,7 +8,7 @@ import static ru.mmtr.dictionary.domain.DictionaryFileEnum.resolveDictionaryNumb
 
 @ShellComponent
 public class ShellUi {
-    private Operation oper;
+    private final Operation oper;
     @Autowired
     public ShellUi(Operation oper) {
         this.oper = oper;

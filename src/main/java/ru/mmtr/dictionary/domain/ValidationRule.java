@@ -1,14 +1,11 @@
 package ru.mmtr.dictionary.domain;
 
+import lombok.Getter;
 import ru.mmtr.dictionary.exceptions.VerificationException;
 
+@Getter
 public class ValidationRule {
     private final String pattern;
-
-    public String getPattern() {
-        return pattern;
-    }
-
     public ValidationRule(String pattern) {
         this.pattern = pattern;
     }
