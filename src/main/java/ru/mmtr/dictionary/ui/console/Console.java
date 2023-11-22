@@ -1,37 +1,28 @@
-package ru.mmtr.dictionary.Controller;
+package ru.mmtr.dictionary.ui.console;
 
+import ru.mmtr.dictionary.domain.DictionaryFileEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.mmtr.dictionary.Entitles.DictionaryFileEnum;
-import ru.mmtr.dictionary.Service.OperationDictionary;
-import ru.mmtr.dictionary.Service.Operation;
+import ru.mmtr.dictionary.service.integration.shell.Operation;
 
 import java.util.Scanner;
 
 @Component
-public class Console implements ConsoleI{
-
-
+public class Console implements ConsoleI {
     private Operation oper;
+    private static DictionaryFileEnum fileNameEnum;
 
-    public Console() {
-    }
     @Autowired
     public Console(Operation oper) {
         this.oper = oper;
     }
 
-    private static DictionaryFileEnum fileNameEnum;
-
-    public void run(){
-        try(Scanner scanner = new Scanner(System.in)) {
-            String key,value,number_dictionary,number_operation;
+    public void run() {
+        try (Scanner scanner = new Scanner(System.in)) {
+            String key, value, number_dictionary, number_operation;
             boolean ok = false;
             while (!ok) {
-                System.out.println("Выберите, с какимм словарём хотите работать:\n" +
-                        "1) Словарь с 4 буквами.\n" +
-                        "2) Словарь с 5 цифрами.\n" +
-                        "exit, если хотите закончить работу.");
+                System.out.println("Выберите, с какимм словарём хотите работать:\n" + "1) Словарь с 4 буквами.\n" + "2) Словарь с 5 цифрами.\n" + "exit, если хотите закончить работу.");
                 number_dictionary = scanner.nextLine();
                 switch (number_dictionary) {
                     case "1":
@@ -50,24 +41,20 @@ public class Console implements ConsoleI{
             }
             ok = false;
             while (!ok) {
-                System.out.println("Выберите, что вы хотите сделать:\n" +
-                        "1) Найти запись по ключу в словаре.\n" +
-                        "2) Удалить запись по ключу в словаре.\n" +
-                        "3) Добавить запись в словарь.\n" +
-                        "exit, если хотите закончить работу." );
+                System.out.println("Выберите, что вы хотите сделать:\n" + "1) Найти запись по ключу в словаре.\n" + "2) Удалить запись по ключу в словаре.\n" + "3) Добавить запись в словарь.\n" + "exit, если хотите закончить работу.");
                 number_operation = scanner.nextLine();
                 switch (number_operation) {
                     case "1":
                         ok = true;
                         System.out.println("Укажите ключ:");
                         key = scanner.next();
-                        oper.search(key,fileNameEnum);
+                        oper.search(key, fileNameEnum);
                         break;
                     case "2":
                         ok = true;
                         System.out.println("Укажите ключ:");
                         key = scanner.next();
-                        oper.delete(key,fileNameEnum);
+                        oper.delete(key, fileNameEnum);
                         break;
                     case "3":
                         ok = true;
@@ -75,12 +62,12 @@ public class Console implements ConsoleI{
                         key = scanner.next();
                         System.out.println("Укажите значение:");
                         value = scanner.next();
-                        oper.addInFile(key, value,fileNameEnum);
+                        oper.addInFile(key, value, fileNameEnum);
                         break;
                     case "exit":
                         return;
                     default:
-                        System.out.println("Ввыберите цифру 1, 2 или 3.");
+                        System.out.println("Выберите цифру 1, 2 или 3.");
                 }
             }
         }
