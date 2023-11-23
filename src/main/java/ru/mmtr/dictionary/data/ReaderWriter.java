@@ -33,9 +33,9 @@ public class ReaderWriter implements FileDB {
                 hashMap.put(first, second);
             }
         }catch (IndexOutOfBoundsException e) {
-            throw new ReaderWriterException("Индекс находится вне диапазона.");
+            throw new ReaderWriterException("IndexOutOfBoundsException");
         }catch (FileNotFoundException e) {
-            throw new ReaderWriterException("Файл не найден.");
+            throw new ReaderWriterException("FileNotFoundException");
         }catch (IOException k) {
             throw new ReaderWriterException("Exception in writeInFile.");
         }
@@ -44,13 +44,20 @@ public class ReaderWriter implements FileDB {
 
     @Override
     public void writeInFile(String key, String value, DictionaryFileEnum fileNameEnum) {
-        try (FileWriter writer = new FileWriter(getFileName(fileNameEnum), true)) {
-            writer.write("\n" + key + " " + value);
+        File f = new File(getFileName(fileNameEnum));
+        try (FileWriter writer = new FileWriter(f, true)) {
+            f.length();
+            if (f.length()==0) {
+                writer.write   (key + " " + value);
+            }
 
+            else {
+                writer.write("\n" + key + " " + value);
+            }
         }catch (IndexOutOfBoundsException e) {
-            throw new ReaderWriterException("Индекс находится вне диапазона.");
+            throw new ReaderWriterException("IndexOutOfBoundsException");
         }catch (FileNotFoundException e) {
-            throw new ReaderWriterException("Файл не найден.");
+            throw new ReaderWriterException("FileNotFoundException");
         }catch (IOException e) {
             throw new ReaderWriterException("Exception in writeInFile");
         }
@@ -69,9 +76,9 @@ public class ReaderWriter implements FileDB {
             }
             writer.flush();
         }catch (IndexOutOfBoundsException e) {
-            throw new ReaderWriterException("Индекс находится вне диапазона.");
+            throw new ReaderWriterException("IndexOutOfBoundsException");
         }catch (FileNotFoundException e) {
-            throw new ReaderWriterException("Файл не найден.");
+            throw new ReaderWriterException("FileNotFoundException");
         }catch (IOException e) {
             throw new ReaderWriterException("Exception in writeInFile");
         }

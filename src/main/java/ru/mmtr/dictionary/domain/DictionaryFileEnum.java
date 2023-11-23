@@ -21,7 +21,8 @@ public enum DictionaryFileEnum {
         return switch (dictionary_number) {
             case (1) -> DictionaryFileEnum.DICTIONARY1;
             case (2) -> DictionaryFileEnum.DICTIONARY2;
-            default -> throw new NullException("Словаря с номером "+dictionary_number+" не существует.");
+            default -> throw new NullException("Словаря с номером "
+                    +dictionary_number+" не существует.");
         };
     }
 }
