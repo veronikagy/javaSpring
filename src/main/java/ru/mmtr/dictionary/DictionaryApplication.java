@@ -8,6 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class DictionaryApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DictionaryApplication.class, args);
+         SpringApplication.run(DictionaryApplication.class, args);
     }
 }

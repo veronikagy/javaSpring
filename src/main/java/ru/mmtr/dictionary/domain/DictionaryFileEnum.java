@@ -22,7 +22,7 @@ public enum DictionaryFileEnum {
             case (1) -> DictionaryFileEnum.DICTIONARY1;
             case (2) -> DictionaryFileEnum.DICTIONARY2;
             default -> throw new NullException("Словаря с номером "
-                    +dictionary_number+" не существует.");
+                    + dictionary_number + " не существует.");
         };
     }
 }

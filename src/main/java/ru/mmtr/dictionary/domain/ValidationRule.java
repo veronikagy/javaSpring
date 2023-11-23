@@ -6,6 +6,7 @@ import ru.mmtr.dictionary.exceptions.VerificationException;
 @Getter
 public class ValidationRule {
     private final String pattern;
+
     public ValidationRule(String pattern) {
         this.pattern = pattern;
     }

@@ -13,7 +13,7 @@ import java.util.Map;
 @Repository
 public class ReaderWriter implements FileDB {
 
-    @Value("${c.file}")
+    @Value("${file}")
     private String file;
 
     private String getFileName(DictionaryFileEnum fileNameEnum) {
@@ -32,11 +32,11 @@ public class ReaderWriter implements FileDB {
                 String second = line.substring(line.indexOf(" ") + 1);
                 hashMap.put(first, second);
             }
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new ReaderWriterException("IndexOutOfBoundsException");
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new ReaderWriterException("FileNotFoundException");
-        }catch (IOException k) {
+        } catch (IOException k) {
             throw new ReaderWriterException("Exception in writeInFile.");
         }
         return hashMap;
@@ -46,19 +46,16 @@ public class ReaderWriter implements FileDB {
     public void writeInFile(String key, String value, DictionaryFileEnum fileNameEnum) {
         File f = new File(getFileName(fileNameEnum));
         try (FileWriter writer = new FileWriter(f, true)) {
-            f.length();
-            if (f.length()==0) {
-                writer.write   (key + " " + value);
-            }
-
-            else {
+            if (f.length() == 0) {
+                writer.write(key + " " + value);
+            } else {
                 writer.write("\n" + key + " " + value);
             }
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new ReaderWriterException("IndexOutOfBoundsException");
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new ReaderWriterException("FileNotFoundException");
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new ReaderWriterException("Exception in writeInFile");
         }
     }
@@ -75,11 +72,11 @@ public class ReaderWriter implements FileDB {
                 }
             }
             writer.flush();
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new ReaderWriterException("IndexOutOfBoundsException");
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new ReaderWriterException("FileNotFoundException");
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new ReaderWriterException("Exception in writeInFile");
         }
     }

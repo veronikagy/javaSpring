@@ -1,11 +1,11 @@
 package ru.mmtr.dictionary.service.logic;
 
 
-import ru.mmtr.dictionary.domain.DictionaryFileEnum;
-import ru.mmtr.dictionary.data.FileDB;
-import ru.mmtr.dictionary.service.integration.shell.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.mmtr.dictionary.data.FileDB;
+import ru.mmtr.dictionary.domain.DictionaryFileEnum;
+import ru.mmtr.dictionary.service.integration.shell.Operation;
 
 import java.util.Map;
 
