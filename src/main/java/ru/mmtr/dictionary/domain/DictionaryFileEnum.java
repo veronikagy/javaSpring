@@ -1,6 +1,7 @@
 package ru.mmtr.dictionary.domain;
 
 import lombok.Getter;
+import ru.mmtr.dictionary.exceptions.NullException;
 
 @Getter
 public enum DictionaryFileEnum {
@@ -18,9 +19,9 @@ public enum DictionaryFileEnum {
 
     public static DictionaryFileEnum resolveDictionaryNumber(int dictionary_number) {
         return switch (dictionary_number) {
-            case 1 -> DictionaryFileEnum.DICTIONARY1;
-            case 2 -> DictionaryFileEnum.DICTIONARY2;
-            default -> null;
+            case (1) -> DictionaryFileEnum.DICTIONARY1;
+            case (2) -> DictionaryFileEnum.DICTIONARY2;
+            default -> throw new NullException("Словаря с номером "+dictionary_number+" не существует.");
         };
     }
 }

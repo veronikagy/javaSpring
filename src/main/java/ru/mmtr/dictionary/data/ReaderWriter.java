@@ -1,10 +1,9 @@
 package ru.mmtr.dictionary.data;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Repository;
 import ru.mmtr.dictionary.domain.DictionaryFileEnum;
-import ru.mmtr.dictionary.exceptions.FileException;
+import ru.mmtr.dictionary.exceptions.ReaderWriterException;
 
 import java.io.*;
 import java.util.HashMap;
@@ -33,8 +32,12 @@ public class ReaderWriter implements FileDB {
                 String second = line.substring(line.indexOf(" ") + 1);
                 hashMap.put(first, second);
             }
-        } catch (IOException k) {
-            throw new FileException("Exception in writeInFile");
+        }catch (IndexOutOfBoundsException e) {
+            throw new ReaderWriterException("Индекс находится вне диапазона.");
+        }catch (FileNotFoundException e) {
+            throw new ReaderWriterException("Файл не найден.");
+        }catch (IOException k) {
+            throw new ReaderWriterException("Exception in writeInFile.");
         }
         return hashMap;
     }
@@ -44,21 +47,33 @@ public class ReaderWriter implements FileDB {
         try (FileWriter writer = new FileWriter(getFileName(fileNameEnum), true)) {
             writer.write("\n" + key + " " + value);
 
-        } catch (IOException e) {
-            throw new FileException("Exception in writeInFile");
+        }catch (IndexOutOfBoundsException e) {
+            throw new ReaderWriterException("Индекс находится вне диапазона.");
+        }catch (FileNotFoundException e) {
+            throw new ReaderWriterException("Файл не найден.");
+        }catch (IOException e) {
+            throw new ReaderWriterException("Exception in writeInFile");
         }
     }
 
     @Override
     public void writeAllInFile(Map<String, String> hashMap, DictionaryFileEnum fileNameEnum) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFileName(fileNameEnum)))) {
+            int count = 0;
             for (Map.Entry<String, String> entry : hashMap.entrySet()) {
                 writer.write(entry.getKey() + " "
-                        + entry.getValue() + "\n");
+                        + entry.getValue());
+                if (++count < hashMap.size()) {
+                    writer.write("\n");
+                }
             }
             writer.flush();
-        } catch (IOException e) {
-            throw new FileException("Exception in writeInFile");
+        }catch (IndexOutOfBoundsException e) {
+            throw new ReaderWriterException("Индекс находится вне диапазона.");
+        }catch (FileNotFoundException e) {
+            throw new ReaderWriterException("Файл не найден.");
+        }catch (IOException e) {
+            throw new ReaderWriterException("Exception in writeInFile");
         }
     }
 

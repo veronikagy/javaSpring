@@ -14,7 +14,7 @@ public class ValidationRule {
         if (key.matches(pattern)) {
             return true;
         } else {
-            throw new VerificationException("Wrong key.");
+            throw new VerificationException("Неправильный ключ.");
         }
     }
 }
