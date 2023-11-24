@@ -18,8 +18,7 @@ public class ReaderWriter implements FileDB {
 
     private String getFileName(DictionaryFileEnum fileNameEnum) {
         int n = fileNameEnum.getDictionaryNumber();
-        StringBuilder fileName = new StringBuilder(file + n);
-        return String.valueOf(fileName);
+        return file + n;
     }
 
     @Override
