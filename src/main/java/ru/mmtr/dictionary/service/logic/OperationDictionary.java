@@ -26,16 +26,18 @@ public class OperationDictionary implements Operation {
         Map<String, String> hashMap = readerWriter.readInFile(fileNameEnum);
         if (!hashMap.containsKey(key)) {
             System.out.println("Словарь не содержит такого слова.");
+            return "Словарь не содержит такого слова.";
         } else {
             hashMap.remove(key);
             readerWriter.writeAllInFile(hashMap, fileNameEnum);
             System.out.println("Запись, ключ которой является " + key + ", успешно удалена.");
+            return "Запись, ключ которой является " + key + ", успешно удалена.";
         }
-        return key;
+
     }
 
     @Override
-    public String search(String key, DictionaryFileEnum fileNameEnum) {
+    public String searchKey(String key, DictionaryFileEnum fileNameEnum) {
         Map<String, String> hashMap = readerWriter.readInFile(fileNameEnum);
         if (!hashMap.containsKey(key)) {
             System.out.println("Словарь не содержит такого слова.");
@@ -43,9 +45,28 @@ public class OperationDictionary implements Operation {
         } else {
             String value = hashMap.get(key);
             System.out.println(key + " " + value);
-            return key+ " " + value;
+            return key + " " + value;
         }
 
+    }
+
+    @Override
+    public String searchValue(String value, DictionaryFileEnum fileNameEnum) {
+        Map<String, String> hashMap = readerWriter.readInFile(fileNameEnum);
+        System.out.println(value);
+        if (!hashMap.containsValue(value)) {
+            System.out.println("Словарь не содержит такого слова.");
+            return "Словарь не содержит такого слова.";
+        } else {
+            String key = null;
+            for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+                if (entry.getValue().equals(value)) {
+                    key = entry.getKey();
+                    break;
+                }
+            }
+            return key + " " + value;
+        }
     }
 
     @Override

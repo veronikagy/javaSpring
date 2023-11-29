@@ -9,11 +9,11 @@
 
 <ul>
     <li>
-        <div onclick="toggleAccordion(this)">Заголовок 1</div>
+        <div onclick="toggleAccordion(this)">Словарь 1</div>
         <div style="display: none;"><p th:text="${dictionary1}"></p></div>
     </li>
     <li>
-        <div onclick="toggleAccordion(this)">Заголовок 2</div>
+        <div onclick="toggleAccordion(this)">Словарь 2</div>
         <div style="display: none;"><p th:text="${dictionary2}"></p></div>
     </li>
 </ul>
@@ -27,6 +27,7 @@
 </form>
 
 <p th:text="${message}"></p>
+
 <script>
     function toggleAccordion(element) {
         const content = element.nextElementSibling;

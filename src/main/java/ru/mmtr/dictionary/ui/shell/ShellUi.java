@@ -21,7 +21,7 @@ public class ShellUi {
 
     @ShellMethod(value = "search")
     public void search(int dictionary_number, String key) {        //@ShellOption(defaultValue = " Nika")
-        oper.search(key, resolveDictionaryNumber(dictionary_number));
+        oper.searchKey(key, resolveDictionaryNumber(dictionary_number));
     }
 
     @ShellMethod(value = "delete")

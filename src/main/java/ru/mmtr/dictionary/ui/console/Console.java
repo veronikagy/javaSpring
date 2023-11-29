@@ -48,7 +48,7 @@ public class Console implements ConsoleI {
                         ok = true;
                         System.out.println("Укажите ключ:");
                         key = scanner.next();
-                        oper.search(key, fileNameEnum);
+                        oper.searchKey(key, fileNameEnum);
                     }
                     case "2" -> {
                         ok = true;
