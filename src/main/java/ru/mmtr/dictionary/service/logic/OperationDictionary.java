@@ -22,7 +22,7 @@ public class OperationDictionary implements Operation {
     }
 
     @Override
-    public void delete(String key, DictionaryFileEnum fileNameEnum) {
+    public String delete(String key, DictionaryFileEnum fileNameEnum) {
         Map<String, String> hashMap = readerWriter.readInFile(fileNameEnum);
         if (!hashMap.containsKey(key)) {
             System.out.println("Словарь не содержит такого слова.");
@@ -31,25 +31,30 @@ public class OperationDictionary implements Operation {
             readerWriter.writeAllInFile(hashMap, fileNameEnum);
             System.out.println("Запись, ключ которой является " + key + ", успешно удалена.");
         }
+        return key;
     }
 
     @Override
-    public void search(String key, DictionaryFileEnum fileNameEnum) {
+    public String search(String key, DictionaryFileEnum fileNameEnum) {
         Map<String, String> hashMap = readerWriter.readInFile(fileNameEnum);
         if (!hashMap.containsKey(key)) {
             System.out.println("Словарь не содержит такого слова.");
+            return "Словарь не содержит такого слова.";
         } else {
             String value = hashMap.get(key);
             System.out.println(key + " " + value);
+            return key+ " " + value;
         }
+
     }
 
     @Override
-    public void addInFile(String key, String value, DictionaryFileEnum fileNameEnum) {
+    public String addInFile(String key, String value, DictionaryFileEnum fileNameEnum) {
         if (fileNameEnum.getDictionaryPattern().verification(key)) {
             readerWriter.writeInFile(key, value, fileNameEnum);
             System.out.println("Запись успешно добавлена.");
         }
+        return "Запись успешно добавлена.";
     }
 
 }
