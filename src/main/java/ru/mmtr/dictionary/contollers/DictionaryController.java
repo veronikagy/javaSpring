@@ -33,15 +33,17 @@ public class DictionaryController {
                            @RequestParam(name = "delete", required = false) String delete,
                            Model model) {
         DictionaryFileEnum fileEnum = DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber);
-        Map<String, String> dictionary1 = readerWriter.readInFile(DictionaryFileEnum.DICTIONARY1);
+
+        Map<String, String> dictionary1 = readerWriter.readInFile(DictionaryFileEnum.DICTIONARY1);//список словарей
         Map<String, String> dictionary2 = readerWriter.readInFile(DictionaryFileEnum.DICTIONARY2);
         model.addAttribute("dictionary1", dictionary1);
         model.addAttribute("dictionary2", dictionary2);
-        if (search != null) {
-            if (!key.isEmpty()) {
+
+        if (search != null) {                                                   //search add delete
+            if (!key.isEmpty()) {                                               //поиск по ключу
                 String s = oper.searchKey(key, fileEnum);
                 model.addAttribute("message", s);
-            } else if (!value.isEmpty()) {
+            } else if (!value.isEmpty()) {                                      //поиск по значению
                 String s = oper.searchValue(value, fileEnum);
                 model.addAttribute("message", s);
             }
