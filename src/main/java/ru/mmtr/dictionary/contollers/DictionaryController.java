@@ -26,7 +26,7 @@ public class DictionaryController {
 
 
     @PostMapping("/view")
-    public String handleDictionaryActions(
+    public String dictionaryActions(
             @RequestParam(name = "answer",required = false) String selectedValue,
             @RequestParam(required = false) String key,
             @RequestParam(required = false) String value,
@@ -47,7 +47,7 @@ public class DictionaryController {
         System.out.println(add);
         System.out.println(delete);
         if (search != null) {
-            handleSearchAction(key, value, fileEnum, model);
+            searchAction(key, value, fileEnum, model);
         }
 
         if (searchInTwo != null) {
@@ -58,11 +58,11 @@ public class DictionaryController {
 
         if (add!=null) {
 
-            handleAddAction(key, value, fileEnum, model);
+            addAction(key, value, fileEnum, model);
         }
 
         if (delete!=null) {
-            handleDeleteAction(key, fileEnum, model);
+            deleteAction(key, fileEnum, model);
         }
 
         return "viewdict.html";
@@ -79,7 +79,7 @@ public class DictionaryController {
         }
     }
 
-    private void handleSearchAction(String key, String value, DictionaryFileEnum fileEnum, Model model) {
+    private void searchAction(String key, String value, DictionaryFileEnum fileEnum, Model model) {
         String result;
         if (key != null && !key.isEmpty()) {
             result = oper.searchKey(key, fileEnum);
@@ -92,12 +92,12 @@ public class DictionaryController {
         model.addAttribute("message", result);
     }
 
-    private void handleAddAction(String key, String value, DictionaryFileEnum fileEnum, Model model) {
+    private void addAction(String key, String value, DictionaryFileEnum fileEnum, Model model) {
         String result = oper.addInFile(key, value, fileEnum);
         model.addAttribute("message", result);
     }
 
-    private void handleDeleteAction(String key, DictionaryFileEnum fileEnum, Model model) {
+    private void deleteAction(String key, DictionaryFileEnum fileEnum, Model model) {
         String result = oper.delete(key, fileEnum);
         model.addAttribute("message", result);
     }
