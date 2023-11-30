@@ -18,10 +18,19 @@
     </li>
 </ul>
 <form action="/view" method="post">
-    С каким словарём вы хотите работать? <input type="text" name="dictionaryNumber" /><br/>
+        <label>
+            <input type="radio" name="answer" value="option1"> Словарь 1
+        </label>
+
+        <label>
+            <input type="radio" name="answer" value="option2"> Словарь 2
+        </label>
+
+    <p></p>
     Key: <input type="text" name="key" /><br/>
     Value: <input type="text" name="value" /><br/>
     <button type="submit" name="search">Найти</button>
+    <button type="submit" name="searchInTwo">Найти в двух словарях</button>
     <button type="submit" name="add">Добавить</button>
     <button type="submit" name="delete">Удалить</button>
 </form>

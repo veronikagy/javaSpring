@@ -24,20 +24,110 @@ public class DictionaryController {
         this.oper = oper;
     }
 
+
     @PostMapping("/view")
-    public String dictPost(@RequestParam int dictionaryNumber,
+    public String handleDictionaryActions(
+            @RequestParam(name = "answer",required = false) String selectedValue,
+            @RequestParam(required = false) String key,
+            @RequestParam(required = false) String value,
+            @RequestParam(name = "search", required = false) String search,
+            @RequestParam(name = "searchInTwo", required = false) String searchInTwo,
+            @RequestParam(name = "add", required = false) String add,
+            @RequestParam(name = "delete", required = false) String delete,
+            Model model) {
+
+        DictionaryFileEnum fileEnum = mapSelectedValueToEnum(selectedValue);
+
+        Map<String, String> dictionary1 = readerWriter.readInFile(DictionaryFileEnum.DICTIONARY1);//список словарей
+        Map<String, String> dictionary2 = readerWriter.readInFile(DictionaryFileEnum.DICTIONARY2);
+        model.addAttribute("dictionary1", dictionary1);
+        model.addAttribute("dictionary2", dictionary2);
+
+        System.out.println(search);
+        System.out.println(add);
+        System.out.println(delete);
+        if (search != null) {
+            handleSearchAction(key, value, fileEnum, model);
+        }
+
+        if (searchInTwo != null) {
+            String result;
+            result = oper.searchValue(value, DictionaryFileEnum.DICTIONARY1) +" "+ oper.searchValue(value,DictionaryFileEnum.DICTIONARY2);
+            model.addAttribute("message",result);
+        }
+
+        if (add!=null) {
+
+            handleAddAction(key, value, fileEnum, model);
+        }
+
+        if (delete!=null) {
+            handleDeleteAction(key, fileEnum, model);
+        }
+
+        return "viewdict.html";
+    }
+
+    private DictionaryFileEnum mapSelectedValueToEnum(String selectedValue) {
+        if ("option1".equals(selectedValue)) {
+            return DictionaryFileEnum.DICTIONARY1;
+        } else if ("option2".equals(selectedValue)) {
+            return DictionaryFileEnum.DICTIONARY2;
+        } else {
+
+            return null;
+        }
+    }
+
+    private void handleSearchAction(String key, String value, DictionaryFileEnum fileEnum, Model model) {
+        String result;
+        if (key != null && !key.isEmpty()) {
+            result = oper.searchKey(key, fileEnum);
+        } else if (value != null && !value.isEmpty()) {
+            result = oper.searchValue(value, fileEnum);
+        } else {
+
+            result = "Вы заполнили не все поля.";
+        }
+        model.addAttribute("message", result);
+    }
+
+    private void handleAddAction(String key, String value, DictionaryFileEnum fileEnum, Model model) {
+        String result = oper.addInFile(key, value, fileEnum);
+        model.addAttribute("message", result);
+    }
+
+    private void handleDeleteAction(String key, DictionaryFileEnum fileEnum, Model model) {
+        String result = oper.delete(key, fileEnum);
+        model.addAttribute("message", result);
+    }
+    /*
+    @PostMapping("/view")
+    public String dictPost(
+                           @RequestParam(name = "answer") String selectedValue,
                            @RequestParam(required = false) String key,
                            @RequestParam(required = false) String value,
                            @RequestParam(name = "search", required = false) String search,
                            @RequestParam(name = "add", required = false) String add,
                            @RequestParam(name = "delete", required = false) String delete,
                            Model model) {
-        DictionaryFileEnum fileEnum = DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber);
+        DictionaryFileEnum fileEnum=null;
+        DictionaryFileEnum fileEnum2=null;
+        if ("option1".equals(selectedValue)) {
+            System.out.println("option1");
+            fileEnum = DictionaryFileEnum.DICTIONARY1;
+        } else if ("option2".equals(selectedValue)) {
+            System.out.println("option2");
+            fileEnum = DictionaryFileEnum.DICTIONARY2;
+        } else if ("option3".equals(selectedValue)) {
+
+        }
 
         Map<String, String> dictionary1 = readerWriter.readInFile(DictionaryFileEnum.DICTIONARY1);//список словарей
         Map<String, String> dictionary2 = readerWriter.readInFile(DictionaryFileEnum.DICTIONARY2);
         model.addAttribute("dictionary1", dictionary1);
         model.addAttribute("dictionary2", dictionary2);
+
 
         if (search != null) {                                                   //search add delete
             if (!key.isEmpty()) {                                               //поиск по ключу
@@ -58,7 +148,7 @@ public class DictionaryController {
         }
 
         return "viewdict.html";
-    }
+    }*/
 
     @GetMapping("/view")
     public String viewDictionary() {
