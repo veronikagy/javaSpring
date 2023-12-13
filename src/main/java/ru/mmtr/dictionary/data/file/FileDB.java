@@ -1,4 +1,4 @@
-package ru.mmtr.dictionary.data;
+package ru.mmtr.dictionary.data.file;
 
 import ru.mmtr.dictionary.domain.DictionaryFileEnum;
 

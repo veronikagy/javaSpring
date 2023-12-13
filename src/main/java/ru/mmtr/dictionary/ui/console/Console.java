@@ -17,12 +17,13 @@ public class Console implements ConsoleI {
         this.oper = oper;
     }
 
+
     public void run() {
         try (Scanner scanner = new Scanner(System.in)) {
             String key, value, number_dictionary, number_operation;
             boolean ok = false;
             while (!ok) {
-                System.out.println("Выберите, с какимм словарём хотите работать:\n" + "1) Словарь с 4 буквами.\n" + "2) Словарь с 5 цифрами.\n" + "exit, если хотите закончить работу.");
+                System.out.println("Выберите, с каким словарём хотите работать:\n" + "1) Словарь с 4 буквами.\n" + "2) Словарь с 5 цифрами.\n" + "exit, если хотите закончить работу.");
                 number_dictionary = scanner.nextLine();
                 switch (number_dictionary) {
                     case "1" -> {

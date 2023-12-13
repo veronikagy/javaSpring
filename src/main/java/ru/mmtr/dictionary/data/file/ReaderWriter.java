@@ -1,7 +1,7 @@
-package ru.mmtr.dictionary.data;
+package ru.mmtr.dictionary.data.file;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.mmtr.dictionary.domain.DictionaryFileEnum;
 import ru.mmtr.dictionary.exceptions.ReaderWriterException;
 
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Repository
+@Component
 public class ReaderWriter implements FileDB {
 
     @Value("${file}")
