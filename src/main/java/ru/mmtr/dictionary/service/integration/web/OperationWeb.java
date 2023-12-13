@@ -6,4 +6,6 @@ public interface OperationWeb {
     String searchKey(String key, int dictionaryNumber);
     String searchValue(String key,int dictionaryNumber);
     String addInFile(String key, String value, int dictionaryNumber);
+
+    String edit(String key, String value, Integer dictionaryNumber);
 }

@@ -4,15 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebСловарь</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+            margin: 10px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
 <h1>WebСловарь</h1>
-
-<ul>
-    <li><a href="https://localhost:8080/view">Ссылка 1</a></li>
-    <li><a href="https://www.example2.com">Ссылка 2</a></li>
-</ul>
-
+<div class="buttons-container">
+    <a href="/view">
+        <button type="button">Найти значение в словарях</button>
+    </a>
+    <a href="/addEdit">
+        <button type="button">Добавление и редактирование</button>
+    </a>
+</div>
 </body>
 </html>

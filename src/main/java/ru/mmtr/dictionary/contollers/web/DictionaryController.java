@@ -18,10 +18,7 @@ public class DictionaryController {
         this.operWeb = operWeb;
     }
 
-    @GetMapping("/main")
-    public String myMain(Model model) {
-        return "main.html";
-    }
+
 
     @PostMapping("/view")
     public String dictionaryActions(@RequestParam(name = "answer", required = false) String selectedValue,
@@ -29,8 +26,6 @@ public class DictionaryController {
                                     @RequestParam(required = false) String value,
                                     @RequestParam(name = "search", required = false) String search,
                                     @RequestParam(name = "searchInTwo", required = false) String searchInTwo,
-                                    @RequestParam(name = "add", required = false) String add,
-                                    @RequestParam(name = "delete", required = false) String delete,
                                     Model model) {
 
         Integer dictionaryNumber = mapSelectedValueToEnum(selectedValue);
@@ -42,14 +37,8 @@ public class DictionaryController {
         }
         if (searchInTwo != null) {
             String result;
-            result = operWeb.searchValue(value, 1) + " " + operWeb.searchValue(value, 2);
+            result = operWeb.searchValue(value, 1) + "; " + operWeb.searchValue(value, 2);
             model.addAttribute("message", result);
-        }
-        if (add != null) {
-            addAction(key, value, dictionaryNumber, model);
-        }
-        if (delete != null) {
-            deleteAction(key, dictionaryNumber, model);
         }
 
         return "viewdict.html";
@@ -76,27 +65,16 @@ public class DictionaryController {
     private void searchAction(String key, String value, Integer dictionaryNumber, Model model) {
         String result;
         if (key != null && !key.isEmpty()) {
-            result = operWeb.searchKey(key, dictionaryNumber);
+
+                result = operWeb.searchKey(key, dictionaryNumber);
+
         } else if (value != null && !value.isEmpty()) {
             result = operWeb.searchValue(value, dictionaryNumber);
         } else {
-
             result = "Вы заполнили не все поля.";
         }
         model.addAttribute("message", result);
     }
-
-    private void addAction(String key, String value, Integer dictionaryNumber, Model model) {
-        String result = operWeb.addInFile(key, value, dictionaryNumber);
-        model.addAttribute("message", result);
-    }
-
-    private void deleteAction(String key, Integer dictionaryNumber, Model model) {
-        String result = operWeb.delete(key, dictionaryNumber);
-        model.addAttribute("message", result);
-    }
-
-
     @GetMapping("/view")
     public String viewDictionary() {
         return "viewdict.html";

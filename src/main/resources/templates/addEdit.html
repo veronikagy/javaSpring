@@ -58,21 +58,10 @@
             cursor: pointer;
         }
     </style>
-    <title>Просмотр</title>
 </head>
 <body>
 
-<ul>
-    <li>
-        <div onclick="toggleAccordion(this)">Словарь 1</div>
-        <div><p th:text="${dictionary1}"></p></div>
-    </li>
-    <li>
-        <div onclick="toggleAccordion(this)">Словарь 2</div>
-        <div><span th:text="${dictionary2}"></span></div>
-    </li>
-</ul>
-<form action="/view" method="post">
+<form action="/addEdit" method="post">
     <label>
         <input type="radio" name="answer" value="option1"> Словарь 1
     </label>
@@ -83,24 +72,15 @@
     <p></p>
     Key: <input type="text" name="key" /><br/>
     Value: <input type="text" name="value" /><br/>
-    <button type="submit" name="search">Найти</button>
-    <button type="submit" name="searchInTwo">Найти в двух словарях</button>
+    <button type="submit" name="add">Добавить</button>
+    <button type="submit" name="delete">Удалить</button>
+    <button type="submit" name="edit">Редактировать</button>
 </form>
 
 <p th:text="${message}"></p>
+
 <a href="/main">
     <button type="button">Вернуться на главную</button>
 </a>
-<script>
-    function toggleAccordion(element) {
-        const content = element.nextElementSibling;
-        if (content.style.display === 'block') {
-            content.style.display = 'none';
-        } else {
-            content.style.display = 'block';
-        }
-    }
-</script>
-
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mmtr.dictionary.model.Dictionary1;
 import ru.mmtr.dictionary.model.Dictionary2;
 
+
 @Repository
 public class ReaderWriterDao implements DictionaryRepository {
 
@@ -36,8 +37,10 @@ public class ReaderWriterDao implements DictionaryRepository {
     }
 
     @Override
-    public boolean update() {
-        return false;
+    @Transactional
+    public void update(String key, String value,int dictionaryNumber) {
+        deleteByKey(key,dictionaryNumber);
+        save(key,value,dictionaryNumber);
     }
 
     @Override
