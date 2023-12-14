@@ -23,13 +23,14 @@ public class Dictionary2 {
         this.dictionary_key = dictionary_key;
         this.dictionary_value = dictionary_value;
     }
+
     public Dictionary2() {
 
     }
 
     @Override
     public String toString() {
-        return getDictionary_key()+" "+getDictionary_value();
+        return getDictionary_key() + " " + getDictionary_value();
     }
 }
 

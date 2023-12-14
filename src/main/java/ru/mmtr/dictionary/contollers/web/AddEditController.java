@@ -19,6 +19,7 @@ public class AddEditController {
     public String myMain() {
         return "addEdit.html";
     }
+
     @PostMapping("/addEdit")
     public String myMainPost(@RequestParam(name = "answer", required = false) String selectedValue,
                              @RequestParam(required = false) String key,
@@ -37,11 +38,12 @@ public class AddEditController {
             deleteAction(key, dictionaryNumber, model);
         }
         if (edit != null) {
-            editAction(key,value, dictionaryNumber, model);
+            editAction(key, value, dictionaryNumber, model);
         }
 
         return "addEdit.html";
     }
+
     private Integer mapSelectedValueToEnum(String selectedValue) {
         if ("option1".equals(selectedValue)) {
             return 1;
@@ -51,6 +53,7 @@ public class AddEditController {
             return null;
         }
     }
+
     private void addAction(String key, String value, Integer dictionaryNumber, Model model) {
         String result = operWeb.addInFile(key, value, dictionaryNumber);
         model.addAttribute("message", result);
@@ -60,8 +63,9 @@ public class AddEditController {
         String result = operWeb.delete(key, dictionaryNumber);
         model.addAttribute("message", result);
     }
-    private void editAction(String key,String value, Integer dictionaryNumber, Model model) {
-        String result = operWeb.edit(key,value,dictionaryNumber);
-        model.addAttribute("message",result);
+
+    private void editAction(String key, String value, Integer dictionaryNumber, Model model) {
+        String result = operWeb.edit(key, value, dictionaryNumber);
+        model.addAttribute("message", result);
     }
 }

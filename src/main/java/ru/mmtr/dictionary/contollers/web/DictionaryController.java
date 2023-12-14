@@ -19,7 +19,6 @@ public class DictionaryController {
     }
 
 
-
     @PostMapping("/view")
     public String dictionaryActions(@RequestParam(name = "answer", required = false) String selectedValue,
                                     @RequestParam(required = false) String key,
@@ -66,7 +65,7 @@ public class DictionaryController {
         String result;
         if (key != null && !key.isEmpty()) {
 
-                result = operWeb.searchKey(key, dictionaryNumber);
+            result = operWeb.searchKey(key, dictionaryNumber);
 
         } else if (value != null && !value.isEmpty()) {
             result = operWeb.searchValue(value, dictionaryNumber);
@@ -75,6 +74,7 @@ public class DictionaryController {
         }
         model.addAttribute("message", result);
     }
+
     @GetMapping("/view")
     public String viewDictionary() {
         return "viewdict.html";

@@ -46,7 +46,6 @@ public class ReaderWriterDao implements DictionaryRepository {
     @Override
     @Transactional
     public void deleteByKey(String key, int dictionaryNumber) {
-
         String select = "delete from Dictionary" + dictionaryNumber + " where dictionary_key=:key";
         Query query = entityManager.createQuery(select);
         query.setParameter("key", key);

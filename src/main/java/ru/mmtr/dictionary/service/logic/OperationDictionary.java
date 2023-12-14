@@ -14,7 +14,7 @@ public class OperationDictionary implements Operation {
     private final FileDB readerWriter;
 
     @Autowired
-    public OperationDictionary( FileDB readerWriter) {
+    public OperationDictionary(FileDB readerWriter) {
         this.readerWriter = readerWriter;
     }
 

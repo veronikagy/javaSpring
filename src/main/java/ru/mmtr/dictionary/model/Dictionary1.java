@@ -12,8 +12,8 @@ public class Dictionary1 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "dictionary_key",length = 4)
-    @Size(min=4,max=4)
+    @Column(name = "dictionary_key", length = 4)
+    @Size(min = 4, max = 4)
     private String dictionary_key;
 
     @Column(name = "dictionary_value")
@@ -23,13 +23,14 @@ public class Dictionary1 {
         this.dictionary_key = dictionary_key;
         this.dictionary_value = dictionary_value;
     }
+
     public Dictionary1() {
 
     }
 
     @Override
     public String toString() {
-        return getDictionary_key()+" "+getDictionary_value();
+        return getDictionary_key() + " " + getDictionary_value();
     }
 }
 

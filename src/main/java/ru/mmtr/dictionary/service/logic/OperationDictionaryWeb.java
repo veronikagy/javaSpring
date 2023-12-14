@@ -38,9 +38,10 @@ public class OperationDictionaryWeb implements OperationWeb {
         writerDao.save(key, value, dictionaryNumber);
         return key + " " + value + " успешно добавлено.";
     }
+
     @Override
     public String edit(String key, String value, Integer dictionaryNumber) {
-        writerDao.update(key,value,dictionaryNumber);
-        return "Запись с ключом "+key + " теперь имеет значение " + value;
+        writerDao.update(key, value, dictionaryNumber);
+        return "Запись с ключом " + key + " теперь имеет значение " + value;
     }
 }
