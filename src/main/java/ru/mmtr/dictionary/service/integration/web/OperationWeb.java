@@ -1,7 +1,10 @@
 package ru.mmtr.dictionary.service.integration.web;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public interface OperationWeb {
-    String delete(String key, int dictionaryNumber);
+    String delete(String key);
 
     String showAll(int dictionaryNumber);
 

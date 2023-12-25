@@ -1,7 +1,6 @@
 package ru.mmtr.dictionary.domain;
 
 import lombok.Getter;
-import ru.mmtr.dictionary.exceptions.VerificationException;
 
 @Getter
 public class ValidationRule {
@@ -12,10 +11,6 @@ public class ValidationRule {
     }
 
     public boolean verification(String key) {
-        if (key.matches(pattern)) {
-            return true;
-        } else {
-            throw new VerificationException("Неправильный ключ.");
-        }
+        return key.matches(pattern);
     }
 }

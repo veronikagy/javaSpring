@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.mmtr.dictionary.domain.DictionaryFileEnum;
 import ru.mmtr.dictionary.service.logic.OperationDictionaryWeb;
 
 @Controller
@@ -26,49 +27,52 @@ public class DictionaryController {
                                     @RequestParam(name = "search", required = false) String search,
                                     @RequestParam(name = "searchInTwo", required = false) String searchInTwo,
                                     Model model) {
-
-        Integer dictionaryNumber = mapSelectedValueToEnum(selectedValue);
-
-        collapsinglist(model); //схлопывающийся список
-
-        if (search != null) {
-            searchAction(key, value, dictionaryNumber, model);
+        collapsinglist(model);
+        if (selectedValue == null) {
+            model.addAttribute("message", "Выберите словарь.");
+        } else if(search != null){
+            DictionaryFileEnum dictionaryNumber = mapSelectedValueToEnum(selectedValue);
+            searchAction(key, value, (dictionaryNumber), model);
         }
         if (searchInTwo != null) {
             String result;
-            result = operWeb.searchValue(value, 1) + "; " + operWeb.searchValue(value, 2);
-            model.addAttribute("message", result);
+            if (key != null && !key.isEmpty()) {
+                model.addAttribute("message", "Найти по двум словарям можно только по значению.");
+            } else {
+                result = operWeb.searchValue(value, DictionaryFileEnum.DICTIONARY1) + " "
+                        + operWeb.searchValue(value, DictionaryFileEnum.DICTIONARY2);
+                model.addAttribute("message", result);
+            }
         }
 
         return "viewdict.html";
     }
 
     private void collapsinglist(Model model) {
-        String dictionary1 = operWeb.showAll(1);
-        String dictionary2 = operWeb.showAll(2);
+        String dictionary1 = operWeb.showAll(DictionaryFileEnum.DICTIONARY1);
+        String dictionary2 = operWeb.showAll(DictionaryFileEnum.DICTIONARY2);
         model.addAttribute("dictionary1", dictionary1);
         model.addAttribute("dictionary2", dictionary2);
     }
 
 
-    private Integer mapSelectedValueToEnum(String selectedValue) {
+    private DictionaryFileEnum mapSelectedValueToEnum(String selectedValue) {
         if ("option1".equals(selectedValue)) {
-            return 1;
+            return DictionaryFileEnum.DICTIONARY1;
         } else if ("option2".equals(selectedValue)) {
-            return 2;
+            return DictionaryFileEnum.DICTIONARY2;
         } else {
             return null;
         }
     }
 
-    private void searchAction(String key, String value, Integer dictionaryNumber, Model model) {
+    private void searchAction(String key, String value, DictionaryFileEnum dictionaryNumber, Model model) {
         String result;
         if (key != null && !key.isEmpty()) {
-
-            result = operWeb.searchKey(key, dictionaryNumber);
-
+            result = !dictionaryNumber.getDictionaryPattern().verification(key) ? "Неправильный ключ." :
+                    operWeb.searchKey(key, dictionaryNumber); //если нет то пустой список
         } else if (value != null && !value.isEmpty()) {
-            result = operWeb.searchValue(value, dictionaryNumber);
+            result = operWeb.searchValue(value, dictionaryNumber);  //если нет то nullpointer
         } else {
             result = "Вы заполнили не все поля.";
         }

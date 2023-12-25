@@ -2,14 +2,13 @@ package ru.mmtr.dictionary.service.logic;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ru.mmtr.dictionary.data.file.FileDB;
 import ru.mmtr.dictionary.domain.DictionaryFileEnum;
 import ru.mmtr.dictionary.service.integration.shell.Operation;
 
 import java.util.Map;
 
-@Service
+
 public class OperationDictionary implements Operation {
     private final FileDB readerWriter;
 

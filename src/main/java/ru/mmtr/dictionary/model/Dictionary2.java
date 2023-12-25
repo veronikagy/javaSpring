@@ -4,33 +4,31 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 
 @Data
 @Entity
 public class Dictionary2 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "dictionary_key", length = 5)
-    @Size(min = 5, max = 5, message = "Слово должно быть 5 цифр в длину.")
-    private String dictionary_key;
 
-    @Column(name = "dictionary_value")
-    private String dictionary_value;
+    @Column(name = "dictionarykey", length = 5)
+    @Size(min = 5, max = 5)
+    private String dictionarykey;
 
-    public Dictionary2(String dictionary_key, String dictionary_value) {
-        this.dictionary_key = dictionary_key;
-        this.dictionary_value = dictionary_value;
+    @OneToMany(mappedBy = "dictionary2", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<DictionaryValue2> value2;
+
+    public Dictionary2(String dictionarykey) {
+        this.dictionarykey = dictionarykey;
     }
-
     public Dictionary2() {
-
     }
-
     @Override
     public String toString() {
-        return getDictionary_key() + " " + getDictionary_value();
+        return getDictionarykey();
     }
 }
 
