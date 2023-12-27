@@ -13,7 +13,7 @@ public class Dictionary1 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "dictionarykey", length = 4)
+    @Column(name = "dictionarykey", length = 4, unique = true)
     private String dictionarykey;
 
     @OneToMany(mappedBy = "dictionary1", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -22,8 +22,10 @@ public class Dictionary1 {
     public Dictionary1(String dictionarykey) {
         this.dictionarykey = dictionarykey;
     }
+
     public Dictionary1() {
     }
+
     @Override
     public String toString() {
         return getDictionarykey();

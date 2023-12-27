@@ -1,6 +1,7 @@
 package ru.mmtr.dictionary.data.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,4 +24,12 @@ public interface DictionaryRepository2 extends JpaRepository<Dictionary2, Long> 
 
     @Query("from DictionaryValue2 d join d.dictionary2 s ")
     List<DictionaryValue2> searchAll();
+    @Modifying
+    @Query(value = "UPDATE Dictionary_value2 d SET d.dictionaryvalue = ?2" +
+            " WHERE EXISTS (" +
+            "    SELECT 1" +
+            "    FROM Dictionary2 s" +
+            "    WHERE s.id = d.dictionaryid2 AND s.dictionarykey = ?1" +
+            ");",nativeQuery = true)
+    void updateByDictionarykey(String dictionarykey,String value);
 }

@@ -37,12 +37,10 @@ public class AddEditController {
             Integer dictionaryNumber = mapSelectedValueToEnum(selectedValue);
 
             if (add != null) {
-                addAction(key, value, DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber), model);  //нет проверки ключа
+                addAction(key, value, DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber), model);
             }
             if (delete != null) {
-                deleteAction(key, DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber), model);        //че не сделай всегда
-                // успешно удалено а хотелось бы еще проверочку
-                // что ключ не написан
+                deleteAction(key, DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber), model);
             }
             if (edit != null) {
                 editAction(key, value, DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber), model);
@@ -62,21 +60,29 @@ public class AddEditController {
     }
 
     private void addAction(String key, String value, DictionaryFileEnum dictionaryNumber, Model model) {
-        String result = operWeb.addInFile(key, value, dictionaryNumber);
-        model.addAttribute("message", result);
+        if (key == null || !dictionaryNumber.getDictionaryPattern().verification(key)) {
+            model.addAttribute("message", "Неправильный ключ.");
+        } else {
+            String result = operWeb.addInFile(key, value, dictionaryNumber);
+            model.addAttribute("message", result);
+        }
     }
 
     private void deleteAction(String key, DictionaryFileEnum dictionaryNumber, Model model) {
-        if (key==null || !dictionaryNumber.getDictionaryPattern().verification(key)){
+        if (key == null || !dictionaryNumber.getDictionaryPattern().verification(key)) {
             model.addAttribute("message", "Неправильный ключ.");
-        }else {
+        } else {
             String result = operWeb.delete(key, dictionaryNumber);
             model.addAttribute("message", result);
         }
     }
 
     private void editAction(String key, String value, DictionaryFileEnum dictionaryNumber, Model model) {
-        String result = operWeb.edit(key, value, dictionaryNumber);
-        model.addAttribute("message", result);
+        if (key == null || !dictionaryNumber.getDictionaryPattern().verification(key)) {
+            model.addAttribute("message", "Неправильный ключ.");
+        } else {
+            String result = operWeb.edit(key, value, dictionaryNumber);
+            model.addAttribute("message", result);
+        }
     }
 }
