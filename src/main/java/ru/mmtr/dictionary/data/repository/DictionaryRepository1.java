@@ -26,12 +26,8 @@ public interface DictionaryRepository1 extends JpaRepository<Dictionary1, Long> 
     void deleteByDictionarykey(String key);
 
     @Modifying
-    @Query(value = "UPDATE Dictionary_value1 d SET d.dictionaryvalue = ?2" +
-            " WHERE EXISTS (" +
-            "    SELECT 1" +
-            "    FROM Dictionary1 s" +
-            "    WHERE s.id = d.dictionaryid1 AND s.dictionarykey = ?1" +
-            ");", nativeQuery = true)
+    @Query(value = "UPDATE Dictionary_value1 SET dictionaryvalue = ?2 FROM Dictionary1 d" +
+            " WHERE Dictionary_value1.dictionaryid1 = d.id AND d.dictionarykey = ?1", nativeQuery = true)
     void updateByDictionarykey(String dictionarykey, String value);
 
 

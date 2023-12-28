@@ -19,7 +19,7 @@ public class ConnectionRepository1 implements ConnectionRepository {
     @Override
     public String saveConnection(String key, String value) {
         List<DictionaryValue1> search = repository.searchByDictionarykey(key);
-        System.out.println(search.toString());
+        System.out.println("_____________________________________"+search.toString());
         Dictionary1 dictionary = search.isEmpty() ? new Dictionary1(key) : search.get(0).getDictionary1();
         dictionary.setDictionarykey(key);
 

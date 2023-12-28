@@ -25,11 +25,7 @@ public interface DictionaryRepository2 extends JpaRepository<Dictionary2, Long> 
     @Query("from DictionaryValue2 d join d.dictionary2 s ")
     List<DictionaryValue2> searchAll();
     @Modifying
-    @Query(value = "UPDATE Dictionary_value2 d SET d.dictionaryvalue = ?2" +
-            " WHERE EXISTS (" +
-            "    SELECT 1" +
-            "    FROM Dictionary2 s" +
-            "    WHERE s.id = d.dictionaryid2 AND s.dictionarykey = ?1" +
-            ");",nativeQuery = true)
-    void updateByDictionarykey(String dictionarykey,String value);
+    @Query(value = "UPDATE Dictionary_value2 SET dictionaryvalue = ?2 FROM Dictionary2 d" +
+            " WHERE Dictionary_value2.dictionaryid2 = d.id AND d.dictionarykey = ?1", nativeQuery = true)
+    void updateByDictionarykey(String dictionarykey, String value);
 }
