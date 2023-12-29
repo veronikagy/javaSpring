@@ -1,18 +1,19 @@
 package ru.mmtr.dictionary.data.repository.dao;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.mmtr.dictionary.data.repository.DictionaryRepository2;
 import ru.mmtr.dictionary.model.Dictionary2;
 import ru.mmtr.dictionary.model.DictionaryValue2;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Transactional
 @Repository
-public class ConnectionRepository2 implements ConnectionRepository {
+public class DictionaryDao2 implements DictionaryDao {
     public final DictionaryRepository2 repository;
 
-    public ConnectionRepository2(DictionaryRepository2 repository) {
+    public DictionaryDao2(DictionaryRepository2 repository) {
         this.repository = repository;
     }
 

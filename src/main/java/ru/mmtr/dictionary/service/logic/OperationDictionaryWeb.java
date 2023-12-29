@@ -2,10 +2,10 @@ package ru.mmtr.dictionary.service.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.mmtr.dictionary.data.repository.dao.ConnectionRepository1;
 import ru.mmtr.dictionary.data.repository.DictionaryRepository1;
 import ru.mmtr.dictionary.data.repository.DictionaryRepository2;
-import ru.mmtr.dictionary.data.repository.dao.ConnectionRepository2;
+import ru.mmtr.dictionary.data.repository.dao.DictionaryDao1;
+import ru.mmtr.dictionary.data.repository.dao.DictionaryDao2;
 import ru.mmtr.dictionary.domain.DictionaryFileEnum;
 import ru.mmtr.dictionary.model.Dictionary1;
 import ru.mmtr.dictionary.model.Dictionary2;
@@ -17,33 +17,35 @@ import java.util.List;
 
 @Service
 public class OperationDictionaryWeb implements Operation {      //можно сделать в два класса, но тогда не нужно будет передавать enum и нужно будет менять имплемент на другой
-                                                                //минусы одного класса:зависимость от двух репозиториев
-    private final ConnectionRepository1 connectionRepository1;
-    private final ConnectionRepository2 connectionRepository2;
+    //минусы одного класса:зависимость от двух репозиториев
+    private final DictionaryDao1 connectionRepository1;
+    private final DictionaryDao2 connectionRepository2;
     private final DictionaryRepository1 repository1;
     private final DictionaryRepository2 repository2;
+
     @Autowired
-    public OperationDictionaryWeb(ConnectionRepository1 connectionRepository1, ConnectionRepository2 connectionRepository2, DictionaryRepository1 writerDao, DictionaryRepository2 repository2) {
+    public OperationDictionaryWeb(DictionaryDao1 connectionRepository1, DictionaryDao2 connectionRepository2, DictionaryRepository1 writerDao, DictionaryRepository2 repository2) {
         this.connectionRepository1 = connectionRepository1;
         this.connectionRepository2 = connectionRepository2;
         this.repository1 = writerDao;
         this.repository2 = repository2;
     }
+
     public String showAll(DictionaryFileEnum dictionaryNumber) {
-        if (dictionaryNumber.getDictionaryNumber()==1) {
+        if (dictionaryNumber.getDictionaryNumber() == 1) {
             List<DictionaryValue1> list = repository1.searchAll();
-            return list.isEmpty()? "Словарь пустой." :list.toString();
-        }else {
+            return list.isEmpty() ? "Словарь пустой." : list.toString();
+        } else {
             List<DictionaryValue2> list = repository2.searchAll();
-            return list.isEmpty()? "Словарь пустой." :list.toString();
+            return list.isEmpty() ? "Словарь пустой." : list.toString();
         }
     }
 
     @Override
     public String delete(String key, DictionaryFileEnum dictionaryNumber) {     //работает, спасибо cascade
-        if (dictionaryNumber.getDictionaryNumber()==1) {
+        if (dictionaryNumber.getDictionaryNumber() == 1) {
             repository1.deleteByDictionarykey(key);
-        }else {
+        } else {
             repository2.deleteByDictionarykey(key);
         }
         return "Запись с ключём " + key + " успешно удалена.";
@@ -51,23 +53,23 @@ public class OperationDictionaryWeb implements Operation {      //можно с�
 
     @Override
     public String searchKey(String key, DictionaryFileEnum dictionaryNumber) {     //все гуd
-        if (dictionaryNumber.getDictionaryNumber()==1) {
+        if (dictionaryNumber.getDictionaryNumber() == 1) {
             List<DictionaryValue1> list = repository1.searchByDictionarykey(key);
-            return list.isEmpty()? "Такой записи нет." :list.toString();
-        }else {
+            return list.isEmpty() ? "Такой записи нет." : list.toString();
+        } else {
             List<DictionaryValue2> list = repository2.searchByDictionarykey(key);
-            return list.isEmpty()? "Такой записи нет." :list.toString();
+            return list.isEmpty() ? "Такой записи нет." : list.toString();
         }
     }
 
     @Override
     public String searchValue(String value, DictionaryFileEnum dictionaryNumber) {    //все гуд
-        if (dictionaryNumber.getDictionaryNumber()==1) {
+        if (dictionaryNumber.getDictionaryNumber() == 1) {
             Dictionary1 d = repository1.searchByDictionaryvalue(value);
-            return d==null ? "Словарь не содержит такого значения.": d+" "+value;
-        }else {
+            return d == null ? "Словарь не содержит такого значения." : d + " " + value;
+        } else {
             Dictionary2 d = repository2.searchByDictionaryvalue(value);
-            return d==null ? "Словарь не содержит такого значения.": d+" "+value;
+            return d == null ? "Словарь не содержит такого значения." : d + " " + value;
         }
     }
 

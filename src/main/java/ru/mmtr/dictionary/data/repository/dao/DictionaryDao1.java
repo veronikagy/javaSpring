@@ -1,25 +1,24 @@
 package ru.mmtr.dictionary.data.repository.dao;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.mmtr.dictionary.data.repository.DictionaryRepository1;
 import ru.mmtr.dictionary.model.Dictionary1;
 import ru.mmtr.dictionary.model.DictionaryValue1;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Transactional
 @Repository
-public class ConnectionRepository1 implements ConnectionRepository {
+public class DictionaryDao1 implements DictionaryDao {
     public final DictionaryRepository1 repository;
-
-    public ConnectionRepository1(DictionaryRepository1 repository) {
+    public DictionaryDao1(DictionaryRepository1 repository) {
         this.repository = repository;
     }
 
     @Override
     public String saveConnection(String key, String value) {
         List<DictionaryValue1> search = repository.searchByDictionarykey(key);
-        System.out.println("_____________________________________"+search.toString());
         Dictionary1 dictionary = search.isEmpty() ? new Dictionary1(key) : search.get(0).getDictionary1();
         dictionary.setDictionarykey(key);
 
