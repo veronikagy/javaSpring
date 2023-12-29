@@ -1,4 +1,4 @@
-package test.ru.mmtr.dictionary.service.logic;
+package ru.mmtr.dictionary.service.logic;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,6 @@ import ru.mmtr.dictionary.model.Dictionary1;
 import ru.mmtr.dictionary.model.Dictionary2;
 import ru.mmtr.dictionary.model.DictionaryValue1;
 import ru.mmtr.dictionary.model.DictionaryValue2;
-import ru.mmtr.dictionary.service.logic.OperationDictionaryWeb;
 
 import java.util.ArrayList;
 import java.util.List;
