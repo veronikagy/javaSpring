@@ -5,7 +5,7 @@ import ru.mmtr.dictionary.Service.OperationDictionary;
 import ru.mmtr.dictionary.Service.Operation;
 
 import java.util.Scanner;
-
+//dfdf
 public class Console implements ConsoleI{
     private static final Operation oper = new OperationDictionary();
     private static DictionaryFileEnum fileNameEnum;
