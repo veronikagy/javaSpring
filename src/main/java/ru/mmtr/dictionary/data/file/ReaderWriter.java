@@ -9,9 +9,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-//newtestbranch
-//new
-//postgres
+
 @Component
 public class ReaderWriter implements FileDB {
 
