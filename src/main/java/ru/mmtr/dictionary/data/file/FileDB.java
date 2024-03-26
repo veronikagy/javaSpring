@@ -2,7 +2,7 @@ package ru.mmtr.dictionary.data.file;
 
 import ru.mmtr.dictionary.domain.DictionaryFileEnum;
 import java.util.Map;
-
+//first
 public interface FileDB {
     Map<String, String> readInFile(DictionaryFileEnum fileNameEnum);
 
