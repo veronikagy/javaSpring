@@ -1,3 +1,4 @@
+/*
 package ru.mmtr.dictionary.ui.shell;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,3 +31,4 @@ public class ShellUi {
     }
 
 }
+*/
