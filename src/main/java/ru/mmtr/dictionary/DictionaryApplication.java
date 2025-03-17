@@ -16,6 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class DictionaryApplication {
-    // Оставляем пустой класс, так как запуск будет через SwingApplication
+
 }
 

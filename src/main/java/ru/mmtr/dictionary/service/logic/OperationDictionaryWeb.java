@@ -12,8 +12,11 @@ import ru.mmtr.dictionary.model.Dictionary2;
 import ru.mmtr.dictionary.model.DictionaryValue1;
 import ru.mmtr.dictionary.model.DictionaryValue2;
 import ru.mmtr.dictionary.service.integration.shell.Operation;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class OperationDictionaryWeb implements Operation {      //можно сделать в два класса, но тогда не нужно будет передавать enum и нужно будет менять имплемент на другой
@@ -88,5 +91,33 @@ public class OperationDictionaryWeb implements Operation {      //можно с�
         } else {
             return connectionRepository2.editConnection(key, value);
         }
+    }
+
+    public String exportToJson(DictionaryFileEnum dictionaryFile) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, String> dictionaryData = getAllEntries(dictionaryFile);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dictionaryData);
+        } catch (Exception e) {
+            return "Ошибка при экспорте в JSON: " + e.getMessage();
+        }
+    }
+
+    private Map<String, String> getAllEntries(DictionaryFileEnum dictionaryFile) {
+        Map<String, String> entries = new HashMap<>();
+        
+        if (dictionaryFile.getDictionaryNumber() == 1) {
+            List<DictionaryValue1> list = repository1.searchAll();
+            for (DictionaryValue1 entry : list) {
+                entries.put(entry.getDictionary1().getDictionarykey(), entry.getDictionaryvalue());
+            }
+        } else {
+            List<DictionaryValue2> list = repository2.searchAll();
+            for (DictionaryValue2 entry : list) {
+                entries.put(entry.getDictionary2().getDictionarykey(), entry.getDictionaryvalue());
+            }
+        }
+        
+        return entries;
     }
 }

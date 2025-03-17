@@ -15,7 +15,6 @@ public class SwingApplication {
         SwingUtilities.invokeLater(() -> {
             try {
                 System.out.println("Инициализация Spring контекста...");
-                // Запуск Spring контекста без веб-сервера
                 context = new SpringApplicationBuilder(DictionaryApplication.class)
                         .headless(false)
                         .web(WebApplicationType.NONE) // Явно указываем, что это не веб-приложение

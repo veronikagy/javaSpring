@@ -37,4 +37,8 @@ public class SwingFacade {
     public String showAll(int dictionaryNumber) {
         return operationDictionary.showAll(DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber));
     }
+
+    public String exportToJson(int dictionaryNumber) {
+        return operationDictionary.exportToJson(DictionaryFileEnum.resolveDictionaryNumber(dictionaryNumber));
+    }
 } 

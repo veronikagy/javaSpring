@@ -15,6 +15,7 @@ public class SearchPanel extends JPanel {
     private JTextField valueTextField;
     private JButton searchButton;
     private JButton searchInBothButton;
+    private JButton exportJsonButton;
     private JTextArea resultTextArea;
     private JTextArea dictionaryContentsTextArea;
 
@@ -27,7 +28,6 @@ public class SearchPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Панель выбора словаря
         JPanel dictionarySelectionPanel = new JPanel();
         dict1RadioButton = new JRadioButton("Словарь 1");
         dict2RadioButton = new JRadioButton("Словарь 2");
@@ -38,8 +38,7 @@ public class SearchPanel extends JPanel {
         
         dictionarySelectionPanel.add(dict1RadioButton);
         dictionarySelectionPanel.add(dict2RadioButton);
-        
-        // Панель ввода данных
+
         JPanel inputPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         inputPanel.add(new JLabel("Ключ:"));
         keyTextField = new JTextField();
@@ -48,14 +47,16 @@ public class SearchPanel extends JPanel {
         valueTextField = new JTextField();
         inputPanel.add(valueTextField);
         
-        // Панель кнопок
+        //кнопки
         JPanel buttonPanel = new JPanel();
         searchButton = new JButton("Поиск");
         searchInBothButton = new JButton("Поиск в обоих словарях");
+        exportJsonButton = new JButton("Экспорт в JSON");
         buttonPanel.add(searchButton);
         buttonPanel.add(searchInBothButton);
+        buttonPanel.add(exportJsonButton);
         
-        // Панель вывода результатов
+        // вывод
         JPanel resultsPanel = new JPanel(new BorderLayout());
         resultTextArea = new JTextArea(5, 40);
         resultTextArea.setEditable(false);
@@ -63,7 +64,7 @@ public class SearchPanel extends JPanel {
         resultsPanel.add(new JLabel("Результат:"), BorderLayout.NORTH);
         resultsPanel.add(resultScrollPane, BorderLayout.CENTER);
         
-        // Панель содержимого словаря
+        // панель содержимого словаря
         JPanel dictionaryPanel = new JPanel(new BorderLayout());
         dictionaryContentsTextArea = new JTextArea(10, 40);
         dictionaryContentsTextArea.setEditable(false);
@@ -80,16 +81,15 @@ public class SearchPanel extends JPanel {
         add(topPanel, BorderLayout.NORTH);
         add(resultsPanel, BorderLayout.CENTER);
         add(dictionaryPanel, BorderLayout.SOUTH);
-        
-        // Обработчики событий
+
         searchButton.addActionListener(e -> performSearch());
         searchInBothButton.addActionListener(e -> performSearchInBoth());
+        exportJsonButton.addActionListener(e -> exportToJson());
         
-        // При выборе словаря обновляем отображение его содержимого
+        // обновляем отображение содержимого
         dict1RadioButton.addActionListener(e -> updateDictionaryContents());
         dict2RadioButton.addActionListener(e -> updateDictionaryContents());
-        
-        // Инициализация содержимого словаря
+
         updateDictionaryContents();
     }
     
@@ -135,5 +135,34 @@ public class SearchPanel extends JPanel {
     
     private int getSelectedDictionary() {
         return dict1RadioButton.isSelected() ? 1 : 2;
+    }
+
+    private void exportToJson() {
+        int dictionaryNumber = getSelectedDictionary();
+        
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Сохранить JSON файл");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("JSON файлы (*.json)", "json"));
+        
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                String jsonContent = facade.exportToJson(dictionaryNumber);
+                String filePath = fileChooser.getSelectedFile().getPath();
+                if (!filePath.toLowerCase().endsWith(".json")) {
+                    filePath += ".json";
+                }
+                
+                java.nio.file.Files.writeString(java.nio.file.Path.of(filePath), jsonContent);
+                JOptionPane.showMessageDialog(this, 
+                    "Словарь успешно экспортирован в JSON файл", 
+                    "Успех", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Ошибка при экспорте: " + ex.getMessage(),
+                    "Ошибка",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 } 
